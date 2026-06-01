@@ -150,7 +150,7 @@ export default function HomePage() {
 
           <div className="heroCard">
             <img
-              src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1200&q=80"
+              src="/portada.png"
               alt="Produccion industrial con maquinas"
             />
             <div className="heroStats">
