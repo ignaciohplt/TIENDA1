@@ -48,67 +48,13 @@ export const initialProducts: Product[] = [
     id: 1,
     name: "Corte laser en chapa",
     category: "Servicios",
-    price: 25000,
-    stock: 99,
-    image: DEFAULT_IMAGE,
-    description:
-      "Servicio de corte laser de alta precision para chapas, piezas especiales y produccion seriada.",
-  },
-  {
-    id: 2,
-    name: "Corte laser de caños",
-    category: "Caños",
-    price: 32000,
-    stock: 40,
-    image:
-      "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1200&q=80",
-    description:
-      "Corte de caños y perfiles para estructuras, herreria, muebles industriales y produccion.",
-  },
-  {
-    id: 3,
-    name: "Chapas caladas decorativas",
-    category: "Chapas",
-    price: 27500,
-    stock: 18,
-    image:
-      "https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1200&q=80",
-    description:
-      "Paneles metalicos calados para frentes, decoracion, cerramientos y proyectos personalizados.",
-  },
-  {
-    id: 4,
-    name: "Carteleria metalica",
-    category: "Decoracion",
-    price: 14500,
-    stock: 25,
-    image:
-      "https://images.unsplash.com/photo-1581093458791-9d42cc030ee0?auto=format&fit=crop&w=1200&q=80",
-    description:
-      "Letras, logos, placas, numeros, carteles y diseños especiales cortados con laser.",
-  },
-  {
-    id: 5,
-    name: "Produccion seriada laser",
-    category: "Produccion",
-    price: 48000,
+    price: 220.000,
     stock: 100,
-    image:
-      "https://images.unsplash.com/photo-1565793298595-6a879b1d9492?auto=format&fit=crop&w=1200&q=80",
+    image: https://http2.mlstatic.com/D_NQ_NP_2X_810475-MLA107866716004_032026-F.webp,
     description:
-      "Cortes repetitivos para empresas, fabricantes y talleres que buscan precision y velocidad.",
+      "Paneles Divisor Ambientes Separador.",
   },
-  {
-    id: 6,
-    name: "Piezas metalicas a medida",
-    category: "A medida",
-    price: 18500,
-    stock: 50,
-    image:
-      "https://images.unsplash.com/photo-1530124566582-a618bc2615dc?auto=format&fit=crop&w=1200&q=80",
-    description:
-      "Fabricacion de piezas metalicas segun plano, muestra, diseño o necesidad del cliente.",
-  },
+  
 ];
 
 export function formatMoney(value: number) {
