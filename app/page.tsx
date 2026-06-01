@@ -20,7 +20,7 @@ export default function HomePage() {
   const [products, setProducts] = useState<Product[]>(initialProducts);
   const [cart, setCart] = useState<CartItem[]>([]);
   const [search, setSearch] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("Todos");
+  const [selectedCategory, setSelectedCategory] = useState(categories[0] || "Todos");
   const [showAdmin, setShowAdmin] = useState(false);
   const [adminMode, setAdminMode] = useState(false);
   const [form, setForm] = useState<ProductForm>(emptyForm);
@@ -276,11 +276,15 @@ export default function HomePage() {
     <main className="site">
       <header className="header">
         <div className="container headerContent">
-          <a className="brand" href="#inicio" aria-label="MetalTec">
-            <img src="/logo.svg" alt="MetalTec" className="brandLogo" />
+          <a className="brand" href="#inicio" aria-label="Metalia Design">
+            <img
+              src="/metalia-design-logo.svg"
+              alt="Metalia Design"
+              className="brandLogo"
+            />
             <div>
-              <strong>MetalTec</strong>
-              <span>Corte laser industrial</span>
+              <strong>Metalia Design</strong>
+              <span>Diseño metálico y corte láser</span>
             </div>
           </a>
 
@@ -305,12 +309,12 @@ export default function HomePage() {
         <div className="heroOverlay" />
         <div className="container heroGrid">
           <div className="heroText">
-            <span className="eyebrow">Venta online + corte laser</span>
-            <h1>Productos metalicos y cortes laser profesionales.</h1>
+            <span className="eyebrow">Diseño + corte láser</span>
+            <h1>Productos metálicos decorativos y cortes láser a medida.</h1>
             <p>
-              Tienda online para publicar productos, servicios de corte laser,
-              chapas caladas, carteleria, caños cortados y trabajos
-              personalizados.
+              Tienda online de productos metálicos, decoración, cartelería,
+              chapas caladas, paneles divisorios y trabajos personalizados con
+              diseño y precisión.
             </p>
 
             <div className="heroActions">
@@ -333,7 +337,7 @@ export default function HomePage() {
           <div className="heroCard">
             <img
               src="/portada1.png"
-              alt="Produccion industrial con maquinas"
+              alt="Producción industrial con máquinas de corte láser"
             />
             <div className="heroStats">
               <div>
@@ -346,7 +350,7 @@ export default function HomePage() {
               </div>
               <div>
                 <strong>PRO</strong>
-                <span>calidad</span>
+                <span>diseño</span>
               </div>
             </div>
           </div>
@@ -355,19 +359,19 @@ export default function HomePage() {
 
       <section id="servicios" className="container serviceGrid">
         <InfoCard
-          title="Corte laser"
-          text="Chapas, caños, piezas y produccion seriada."
+          title="Corte láser"
+          text="Chapas, caños, piezas especiales y producción seriada."
         />
         <InfoCard
-          title="Precision"
-          text="Terminaciones limpias y medidas confiables."
+          title="Diseño metálico"
+          text="Productos decorativos, cartelería y diseños personalizados."
         />
         <InfoCard
-          title="Catalogo"
-          text="Productos con foto, precio, stock y descripcion."
+          title="Catálogo online"
+          text="Productos con foto, precio, stock y descripción."
         />
         <InfoCard
-          title="Pedido rapido"
+          title="Pedido rápido"
           text="Consulta directa por WhatsApp o pago online."
         />
       </section>
@@ -378,7 +382,7 @@ export default function HomePage() {
             <span>Panel administrador</span>
             <h2>{editingProductId ? "Editar producto" : "Cargar nuevo producto"}</h2>
             <p>
-              Esta version guarda los productos en Supabase. Para agregar,
+              Esta versión guarda los productos en Supabase. Para agregar,
               editar o eliminar, te va a pedir la clave admin.
             </p>
           </div>
@@ -388,14 +392,14 @@ export default function HomePage() {
               label="Nombre"
               value={form.name}
               onChange={(value) => setForm({ ...form, name: value })}
-              placeholder="Ej: Chapa calada personalizada"
+              placeholder="Ej: Panel divisor de ambientes"
             />
 
             <InputBox
-              label="Categoria"
+              label="Categoría"
               value={form.category}
               onChange={(value) => setForm({ ...form, category: value })}
-              placeholder="Ej: Chapas"
+              placeholder="Ej: Productos"
             />
 
             <InputBox
@@ -426,13 +430,13 @@ export default function HomePage() {
             </label>
 
             <label className="field fieldFull">
-              <span>Descripcion</span>
+              <span>Descripción</span>
               <textarea
                 value={form.description}
                 onChange={(event) =>
                   setForm({ ...form, description: event.target.value })
                 }
-                placeholder="Descripcion breve del producto"
+                placeholder="Descripción breve del producto"
               />
             </label>
 
@@ -454,7 +458,7 @@ export default function HomePage() {
                 type="button"
                 onClick={cancelEditProduct}
               >
-                Cancelar edicion
+                Cancelar edición
               </button>
             )}
           </form>
@@ -465,9 +469,9 @@ export default function HomePage() {
         <div>
           <div className="sectionTitle shopTitle">
             <div>
-              <span>Catalogo</span>
-              <h2>Productos y servicios</h2>
-              <p>Publica productos, servicios, precios y recibi pedidos.</p>
+              <span>Catálogo</span>
+              <h2>PRODUCTOS</h2>
+              <p>Elegí tu producto y consultá directo por WhatsApp.</p>
             </div>
 
             <label className="searchBox">
@@ -502,7 +506,7 @@ export default function HomePage() {
             <div className="emptyProducts">
               <h3>No hay productos cargados</h3>
               <p>
-                Usa el panel admin para cargar productos y guardarlos en
+                Entrá como administrador para cargar productos y guardarlos en
                 Supabase.
               </p>
             </div>
@@ -532,7 +536,7 @@ export default function HomePage() {
           </div>
 
           {cart.length === 0 ? (
-            <p className="emptyCart">Todavia no agregaste productos.</p>
+            <p className="emptyCart">Todavía no agregaste productos.</p>
           ) : (
             <div className="cartList">
               {cart.map((item) => (
@@ -566,7 +570,7 @@ export default function HomePage() {
             type="button"
             className="mpButton"
             onClick={() =>
-              alert("Aca despues se conecta Mercado Pago con Checkout Pro.")
+              alert("Acá después se conecta Mercado Pago con Checkout Pro.")
             }
           >
             Pagar con Mercado Pago
@@ -590,8 +594,8 @@ export default function HomePage() {
       </section>
 
       <footer className="footer">
-        <strong>MetalTec</strong>
-        <span>Precision en corte laser - Tienda online industrial</span>
+        <strong>Metalia Design</strong>
+        <span>Diseños metálicos, decoración y corte láser</span>
       </footer>
     </main>
   );
