@@ -345,11 +345,11 @@ export default function HomePage() {
                 <span>productos</span>
               </div>
               <div>
-                <strong>24h</strong>
+                <strong>24/7Hs</strong>
                 <span>consulta</span>
               </div>
               <div>
-                <strong>PRO</strong>
+                <strong>UNICOS</strong>
                 <span>diseño</span>
               </div>
             </div>
@@ -359,8 +359,8 @@ export default function HomePage() {
 
       <section id="servicios" className="container serviceGrid">
         <InfoCard
-          title="Corte láser"
-          text="Chapas, caños, piezas especiales y producción seriada."
+          title="Paneles decorativos"
+          text="Diseños metálicos calados para dividir, decorar y renovar tus espacios."
         />
         <InfoCard
           title="Diseño metálico"
