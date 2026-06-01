@@ -53,6 +53,18 @@ export function formatMoney(value: number) {
   }).format(value || 0);
 }
 
+export function calculateCartTotal(cart: CartItem[]) {
+  return cart.reduce((total, item) => {
+    return total + item.price * item.quantity;
+  }, 0);
+}
+
+export function calculateCartQuantity(cart: CartItem[]) {
+  return cart.reduce((total, item) => {
+    return total + item.quantity;
+  }, 0);
+}
+
 export function buildWhatsAppText(cart: CartItem[], total: number) {
   const lineBreak = String.fromCharCode(10);
 
@@ -91,6 +103,25 @@ export function validateProductForm(form: ProductForm) {
   };
 }
 
+export function createProductFromForm(form: ProductForm): Product | null {
+  const validation = validateProductForm(form);
+
+  if (!validation.isValid) {
+    return null;
+  }
+
+  return {
+    id: Date.now(),
+    name: form.name.trim(),
+    category: form.category.trim() || "A medida",
+    price: validation.price,
+    stock: validation.stock,
+    image: form.image.trim() || DEFAULT_IMAGE,
+    description:
+      form.description.trim() || "Producto cargado desde el panel administrador.",
+  };
+}
+
 export function getFilteredProducts(
   products: Product[],
   search: string,
@@ -112,9 +143,42 @@ export function getFilteredProducts(
   });
 }
 
+export function addProductToCart(cart: CartItem[], product: Product) {
+  const productInCart = cart.find((item) => item.id === product.id);
+
+  if (productInCart) {
+    return cart.map((item) => {
+      if (item.id === product.id) {
+        return {
+          ...item,
+          quantity: item.quantity + 1,
+        };
+      }
+
+      return item;
+    });
+  }
+
+  return cart.concat([
+    {
+      ...product,
+      quantity: 1,
+    },
+  ]);
+}
+
+export function removeProductFromCart(cart: CartItem[], productId: number) {
+  return cart.filter((item) => item.id !== productId);
+}
+
 export const __tests__ = {
   formatMoney,
+  calculateCartTotal,
+  calculateCartQuantity,
   buildWhatsAppText,
   validateProductForm,
+  createProductFromForm,
   getFilteredProducts,
+  addProductToCart,
+  removeProductFromCart,
 };
