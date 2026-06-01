@@ -1,11 +1,9 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import type { FormEvent } from "react";
 import {
-  CartItem,
   DEFAULT_IMAGE,
-  Product,
-  ProductForm,
   buildWhatsAppText,
   calculateCartQuantity,
   calculateCartTotal,
@@ -16,6 +14,7 @@ import {
   initialProducts,
   validateProductForm,
 } from "../lib/store";
+import type { CartItem, Product, ProductForm } from "../lib/store";
 
 export default function HomePage() {
   const [products, setProducts] = useState<Product[]>(initialProducts);
@@ -24,6 +23,37 @@ export default function HomePage() {
   const [selectedCategory, setSelectedCategory] = useState("Todos");
   const [showAdmin, setShowAdmin] = useState(false);
   const [form, setForm] = useState<ProductForm>(emptyForm);
+  const [loadingProducts, setLoadingProducts] = useState(true);
+  const [savingProduct, setSavingProduct] = useState(false);
+
+  useEffect(() => {
+    async function loadProducts() {
+      try {
+        const response = await fetch("/api/products", {
+          cache: "no-store",
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          console.error(data.error || "No se pudieron cargar los productos");
+          setProducts(initialProducts);
+          return;
+        }
+
+        if (Array.isArray(data.products)) {
+          setProducts(data.products as Product[]);
+        }
+      } catch (error) {
+        console.error("Error cargando productos", error);
+        setProducts(initialProducts);
+      } finally {
+        setLoadingProducts(false);
+      }
+    }
+
+    loadProducts();
+  }, []);
 
   const filteredProducts = useMemo(() => {
     return filterProducts(products, search, selectedCategory);
@@ -60,7 +90,7 @@ export default function HomePage() {
     setCart([]);
   }
 
-  function addProduct(event: React.FormEvent<HTMLFormElement>) {
+  async function addProduct(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     const validation = validateProductForm(form);
@@ -70,8 +100,14 @@ export default function HomePage() {
       return;
     }
 
-    const newProduct: Product = {
-      id: Date.now(),
+    const password = window.prompt("Ingrese clave admin");
+
+    if (!password) {
+      alert("No ingresaste clave.");
+      return;
+    }
+
+    const newProduct = {
       name: form.name.trim(),
       category: form.category.trim() || "A medida",
       price: validation.price,
@@ -82,8 +118,37 @@ export default function HomePage() {
         "Producto cargado desde el panel administrador.",
     };
 
-    setProducts((currentProducts) => [newProduct].concat(currentProducts));
-    setForm(emptyForm);
+    try {
+      setSavingProduct(true);
+
+      const response = await fetch("/api/products", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-admin-password": password,
+        },
+        body: JSON.stringify(newProduct),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        alert(data.error || "No se pudo guardar el producto.");
+        return;
+      }
+
+      setProducts((currentProducts) => {
+        return [data.product as Product].concat(currentProducts);
+      });
+
+      setForm(emptyForm);
+      alert("Producto guardado en la base de datos.");
+    } catch (error) {
+      console.error("Error guardando producto", error);
+      alert("No se pudo guardar el producto.");
+    } finally {
+      setSavingProduct(false);
+    }
   }
 
   const whatsappNumber =
@@ -196,9 +261,8 @@ export default function HomePage() {
             <span>Panel administrador</span>
             <h2>Cargar nuevo producto</h2>
             <p>
-              Esta version permite probar la carga de productos. Para que los
-              productos queden guardados definitivamente hay que cargarlos en
-              lib/store.ts o conectar una base de datos.
+              Esta version guarda los productos en Supabase. Al cargar un
+              producto te va a pedir la clave admin.
             </p>
           </div>
 
@@ -240,7 +304,7 @@ export default function HomePage() {
                 onChange={(event) =>
                   setForm({ ...form, image: event.target.value })
                 }
-                placeholder="Pega la URL de una foto de maquina laser o producto"
+                placeholder="Ej: /productos/panel-divisor.jpg"
               />
             </label>
 
@@ -255,8 +319,12 @@ export default function HomePage() {
               />
             </label>
 
-            <button className="primaryButton fieldFull" type="submit">
-              Agregar producto
+            <button
+              className="primaryButton fieldFull"
+              type="submit"
+              disabled={savingProduct}
+            >
+              {savingProduct ? "Guardando..." : "Agregar producto"}
             </button>
           </form>
         </section>
@@ -294,12 +362,17 @@ export default function HomePage() {
             ))}
           </div>
 
-          {filteredProducts.length === 0 ? (
+          {loadingProducts ? (
+            <div className="emptyProducts">
+              <h3>Cargando productos...</h3>
+              <p>Estamos consultando la base de datos.</p>
+            </div>
+          ) : filteredProducts.length === 0 ? (
             <div className="emptyProducts">
               <h3>No hay productos cargados</h3>
               <p>
-                Agrega productos desde lib/store.ts o usa el panel admin para
-                probar la carga visual.
+                Usa el panel admin para cargar productos y guardarlos en
+                Supabase.
               </p>
             </div>
           ) : (
@@ -365,7 +438,12 @@ export default function HomePage() {
             Pagar con Mercado Pago
           </button>
 
-          <a className="whatsappButton" href={whatsappUrl} target="_blank">
+          <a
+            className="whatsappButton"
+            href={whatsappUrl}
+            target="_blank"
+            rel="noreferrer"
+          >
             Comprar por WhatsApp
           </a>
 
