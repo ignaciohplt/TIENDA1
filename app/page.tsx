@@ -102,7 +102,7 @@ export default function HomePage() {
       <header className="header">
         <div className="container headerContent">
           <a className="brand" href="#inicio" aria-label="LaserCut Pro">
-            <img src="/logo.svg" alt="LaserCut Pro" className="brandLogo" />
+            <img src="/logo.svg" alt="MetalTec" className="brandLogo" />
             <div>
               <strong>LaserCut Pro</strong>
               <span>Corte laser industrial</span>
