@@ -150,7 +150,7 @@ export default function HomePage() {
 
           <div className="heroCard">
             <img
-              src="/portada.png"
+              src="/portada1.png"
               alt="Produccion industrial con maquinas"
             />
             <div className="heroStats">
