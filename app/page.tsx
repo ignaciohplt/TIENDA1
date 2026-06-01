@@ -284,7 +284,7 @@ export default function HomePage() {
             />
             <div>
               <strong>Metalia Design</strong>
-              <span>Decoración metálica de diseñor</span>
+              <span>Diseño metálico para espacios únicos</span>
             </div>
           </a>
 
@@ -309,7 +309,7 @@ export default function HomePage() {
         <div className="heroOverlay" />
         <div className="container heroGrid">
           <div className="heroText">
-            <span className="eyebrow">Diseño + corte láser</span>
+            <span className="eyebrow">Diseño para hogares y espacios</span>
             <h1>Productos metálicos de diseño para decorar tu espacio.</h1>
             <p>
              Productos de diseño para hogares, locales y espacios comerciales.
