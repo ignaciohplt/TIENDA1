@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "LaserCut Pro | Corte laser industrial",
+  title: "MetalTec | Corte laser industrial",
   description:
     "Tienda online de productos metalicos, corte laser en chapa, corte de canos, carteleria metalica y trabajos personalizados.",
 };
