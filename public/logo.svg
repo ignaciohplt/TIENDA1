@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#2f3133" flood-opacity="0.14"></feDropShadow>
+    </filter>
+
+    <linearGradient id="metalDark" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#404346"></stop>
+      <stop offset="100%" stop-color="#2b2e31"></stop>
+    </linearGradient>
+
+    <linearGradient id="sage" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#b8beaa"></stop>
+      <stop offset="100%" stop-color="#9ea58f"></stop>
+    </linearGradient>
+
+    <linearGradient id="terracotta" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#d49674"></stop>
+      <stop offset="100%" stop-color="#bf7a55"></stop>
+    </linearGradient>
+  </defs>
+
+  <rect width="512" height="512" rx="88" fill="#F6F1EA"></rect>
+
+  <g transform="translate(66 66)" filter="url(#shadow)">
+    <rect x="0" y="0" width="380" height="380" rx="36" fill="#FBF8F3" stroke="url(#metalDark)" stroke-width="20"></rect>
+
+    <path d="M56 56H324L190 190L56 56Z" fill="url(#sage)"></path>
+    <path d="M176 200L310 334H176V200Z" fill="#EFE8DE"></path>
+    <path d="M220 258L296 182V336L220 258Z" fill="url(#terracotta)"></path>
+
+    <path d="M44 44L44 336H126V176L190 240L254 176L336 94V336" stroke="url(#metalDark)" stroke-width="28" stroke-linecap="square" stroke-linejoin="miter"></path>
+    <path d="M44 44L190 190L336 44" stroke="url(#metalDark)" stroke-width="28" stroke-linecap="square" stroke-linejoin="miter"></path>
+    <path d="M126 176V336" stroke="url(#metalDark)" stroke-width="28" stroke-linecap="square"></path>
+  </g>
+</svg>
