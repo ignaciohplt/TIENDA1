@@ -374,10 +374,7 @@ export default function HomePage() {
 
       <section className="benefitsStrip">
         <div className="container benefitsGrid">
-          <BenefitItem
-  icon="✓"
-  title="Envíos a todo el país"
-  text="Rápidos y seguros"
+
 />
 
         </div>
