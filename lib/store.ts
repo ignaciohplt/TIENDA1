@@ -25,13 +25,7 @@ export const DEFAULT_IMAGE =
   "https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?auto=format&fit=crop&w=1200&q=80";
 
 export const categories = [
-  "Todos",
-  "Servicios",
-  "Canos",
-  "Chapas",
-  "Decoracion",
-  "Produccion",
-  "A medida",
+  "Productos",
 ];
 
 export const emptyForm: ProductForm = {
