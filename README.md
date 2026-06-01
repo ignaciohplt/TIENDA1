@@ -87,3 +87,4 @@ npm run test
 - Agregar dominio propio.
 - Configurar Google Search Console.
 # TIENDA-1
+# TIENDA1
