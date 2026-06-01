@@ -67,9 +67,10 @@ button {
 }
 
 .brandLogo {
-  width: 48px;
-  height: 48px;
+  width: 56px;
+  height: 56px;
   border-radius: 16px;
+  object-fit: contain;
   box-shadow: 0 8px 24px rgba(86, 80, 66, 0.18);
 }
 
@@ -307,6 +308,20 @@ button {
   margin: 12px 0 0;
   color: rgba(43, 43, 37, 0.62);
   line-height: 1.55;
+}
+
+.infoIcon {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  margin-bottom: 14px;
+  border-radius: 16px;
+  background: #efe7dc;
+  color: #6f7f5f;
+  font-size: 28px;
+  font-weight: 900;
+  border: 1px solid rgba(111, 127, 95, 0.2);
 }
 
 /* TITULOS */
@@ -750,6 +765,114 @@ button {
   background: #d9cab8;
 }
 
+/* RESEÑAS */
+
+.reviewsSection {
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+
+.reviewsTitle {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.reviewsTitle p {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.reviewsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.reviewCard {
+  border: 1px solid rgba(43, 43, 37, 0.12);
+  border-radius: 28px;
+  background: rgba(255, 252, 247, 0.86);
+  box-shadow: 0 22px 70px rgba(67, 54, 38, 0.1);
+  padding: 24px;
+}
+
+.reviewStars {
+  margin-bottom: 14px;
+  color: #c2815f;
+  font-size: 18px;
+  letter-spacing: 3px;
+}
+
+.reviewCard p {
+  margin: 0 0 18px;
+  color: rgba(43, 43, 37, 0.68);
+  line-height: 1.65;
+  font-size: 15px;
+}
+
+.reviewAuthor {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.reviewsSection .reviewAuthor img {
+  width: 56px !important;
+  height: 56px !important;
+  min-width: 56px !important;
+  max-width: 56px !important;
+  max-height: 56px !important;
+  border-radius: 14px;
+  object-fit: cover;
+  border: 1px solid rgba(43, 43, 37, 0.08);
+}
+
+.reviewAuthor strong {
+  display: block;
+  margin-top: 0;
+  color: #2b2b25;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.reviewAuthor span {
+  display: block;
+  margin-top: 4px;
+  color: rgba(43, 43, 37, 0.6);
+  font-size: 13px;
+}
+
+/* CTA */
+
+.ctaStrip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 54px;
+  border-radius: 28px;
+  background:
+    linear-gradient(90deg, rgba(111, 127, 95, 0.28), rgba(255, 252, 247, 0.8)),
+    #dfe6d2;
+  padding: 32px;
+}
+
+.ctaStrip h2 {
+  margin: 0;
+  color: #2b2b25;
+  font-size: 34px;
+}
+
+.ctaStrip p {
+  margin: 8px 0 0;
+  color: rgba(43, 43, 37, 0.68);
+  font-weight: 600;
+}
+
+.ctaButton {
+  max-width: 260px;
+}
+
 /* FOOTER */
 
 .footer {
@@ -781,8 +904,21 @@ button {
     grid-template-columns: repeat(2, 1fr);
   }
 
+  .reviewsGrid {
+    grid-template-columns: 1fr;
+  }
+
   .cartBox {
     position: static;
+  }
+
+  .ctaStrip {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .ctaButton {
+    max-width: none;
   }
 }
 
@@ -820,258 +956,11 @@ button {
     grid-template-columns: 1fr;
   }
 
-  .reviewsSection {
-  padding-top: 20px;
-  padding-bottom: 64px;
-}
-
-.reviewsTitle {
-  margin-bottom: 24px;
-}
-
-.reviewsGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
-}
-
-.reviewCard {
-  border: 1px solid rgba(43, 43, 37, 0.12);
-  border-radius: 28px;
-  background: rgba(255, 252, 247, 0.86);
-  box-shadow: 0 22px 70px rgba(67, 54, 38, 0.1);
-  padding: 24px;
-}
-
-.reviewStars {
-  margin-bottom: 14px;
-  color: #c2815f;
-  font-size: 18px;
-  letter-spacing: 3px;
-}
-
-.reviewCard p {
-  margin: 0;
-  color: rgba(43, 43, 37, 0.68);
-  line-height: 1.65;
-}
-
-.reviewCard strong {
-  display: block;
-  margin-top: 18px;
-  color: #2b2b25;
-  font-size: 17px;
-  font-weight: 900;
-}
-
-.reviewCard span {
-  display: block;
-  margin-top: 5px;
-  color: #6f7f5f;
-  font-size: 13px;
-  font-weight: 800;
-}
-
-@media (max-width: 980px) {
-  .reviewsGrid {
-    grid-template-columns: 1fr;
-  }
-
-  /* FIX BENEFICIOS - ESTILO PRO */
-
-.benefitsStrip {
-  width: 100%;
-  background: rgba(255, 252, 247, 0.92);
-  border-top: 1px solid rgba(43, 43, 37, 0.08);
-  border-bottom: 1px solid rgba(43, 43, 37, 0.08);
-  box-shadow: 0 14px 40px rgba(67, 54, 38, 0.06);
-}
-
-.benefitsGrid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 18px;
-  padding-top: 26px;
-  padding-bottom: 26px;
-}
-
-.benefitItem {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  min-height: 86px;
-  padding: 16px 18px;
-  border-radius: 22px;
-  background: #fffaf2;
-  border: 1px solid rgba(43, 43, 37, 0.08);
-}
-
-.benefitItem > span {
-  display: grid;
-  place-items: center;
-  flex: 0 0 50px;
-  width: 50px;
-  height: 50px;
-  border-radius: 16px;
-  background: #7b8a68;
-  color: #ffffff;
-  font-size: 22px;
-  font-weight: 900;
-  line-height: 1;
-}
-
-.benefitItem strong {
-  display: block;
-  color: #2b2b25;
-  font-size: 15px;
-  font-weight: 900;
-  line-height: 1.2;
-}
-
-.benefitItem p {
-  margin: 5px 0 0;
-  color: rgba(43, 43, 37, 0.62);
-  font-size: 14px;
-  font-weight: 600;
-}
-
-/* FIX TARJETAS DE SERVICIOS */
-
-.serviceGrid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 18px;
-  padding-top: 44px;
-  padding-bottom: 44px;
-}
-
-.infoCard {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  min-height: 150px;
-  padding: 24px;
-  border-radius: 26px;
-  background: rgba(255, 252, 247, 0.92);
-  border: 1px solid rgba(43, 43, 37, 0.1);
-  box-shadow: 0 22px 70px rgba(67, 54, 38, 0.08);
-}
-
-.infoIcon {
-  display: grid;
-  place-items: center;
-  flex: 0 0 58px;
-  width: 58px;
-  height: 58px;
-  border-radius: 18px;
-  background: #efe7dc;
-  color: #6f7f5f;
-  font-size: 30px;
-  font-weight: 900;
-  border: 1px solid rgba(111, 127, 95, 0.2);
-}
-
-.infoCard strong {
-  display: block;
-  color: #2b2b25;
-  font-size: 18px;
-  font-weight: 900;
-}
-
-.infoCard p {
-  margin: 9px 0 0;
-  color: rgba(43, 43, 37, 0.62);
-  font-size: 14px;
-  line-height: 1.55;
-}
-
-/* MOBILE */
-
-@media (max-width: 980px) {
-  .benefitsGrid,
-  .serviceGrid {
-    grid-template-columns: repeat(2, 1fr);
+  .reviewsSection .reviewAuthor img {
+    width: 48px !important;
+    height: 48px !important;
+    min-width: 48px !important;
+    max-width: 48px !important;
+    max-height: 48px !important;
   }
 }
-
-@media (max-width: 640px) {
-  .benefitsGrid,
-  .serviceGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .benefitItem {
-    min-height: auto;
-  }
-.reviewsSection {
-  padding-top: 60px;
-  padding-bottom: 60px;
-}
-
-.reviewsTitle {
-  margin-bottom: 24px;
-}
-
-.reviewsGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-}
-
-.reviewCard {
-  padding: 24px;
-  border-radius: 24px;
-  background: rgba(255, 252, 247, 0.92);
-  border: 1px solid rgba(43, 43, 37, 0.1);
-  box-shadow: 0 18px 40px rgba(67, 54, 38, 0.08);
-}
-
-.reviewStars {
-  margin-bottom: 12px;
-  color: #8a9b72;
-  font-size: 18px;
-  letter-spacing: 2px;
-}
-
-.reviewCard p {
-  margin: 0 0 18px;
-  color: rgba(43, 43, 37, 0.72);
-  line-height: 1.6;
-  font-size: 15px;
-}
-
-.reviewAuthor {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.reviewAuthor img {
-  width: 56px;
-  height: 56px;
-  min-width: 56px;
-  border-radius: 14px;
-  object-fit: cover;
-  border: 1px solid rgba(43, 43, 37, 0.08);
-}
-
-.reviewAuthor strong {
-  display: block;
-  color: #2b2b25;
-  font-size: 14px;
-  font-weight: 800;
-}
-
-.reviewAuthor span {
-  display: block;
-  margin-top: 4px;
-  color: rgba(43, 43, 37, 0.6);
-  font-size: 13px;
-}
-
-@media (max-width: 980px) {
-  .reviewsGrid {
-    grid-template-columns: 1fr;
-  }
-}
-  
