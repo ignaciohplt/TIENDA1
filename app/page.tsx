@@ -278,7 +278,7 @@ export default function HomePage() {
         <div className="container headerContent">
           <a className="brand" href="#inicio" aria-label="Metalia Design">
             <img
-              src="/metalia-design-logo.svg"
+              src="/logo.svg"
               alt="Metalia Design"
               className="brandLogo"
             />
