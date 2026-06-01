@@ -27,7 +27,7 @@ export const DEFAULT_IMAGE =
 export const categories = [
   "Todos",
   "Servicios",
-  "Caños",
+  "Canos",
   "Chapas",
   "Decoracion",
   "Produccion",
@@ -43,18 +43,7 @@ export const emptyForm: ProductForm = {
   description: "",
 };
 
-export const initialProducts: Product[] = [
-{
-  id: 1,
-  name: "Panel divisor ambientes",
-  category: "Decoracion",
-  price: 220000,
-  stock: 100,
-  image: "https://http2.mlstatic.com/D_NQ_NP_2X_810475-MLA107866716004_032026-F.webp",
-  description: "Paneles Divisor Ambientes Separador.",
-},
-  
-];
+export const initialProducts: Product[] = [];
 
 export function formatMoney(value: number) {
   return new Intl.NumberFormat("es-AR", {
@@ -66,6 +55,7 @@ export function formatMoney(value: number) {
 
 export function buildWhatsAppText(cart: CartItem[], total: number) {
   const lineBreak = String.fromCharCode(10);
+
   const productLines = cart.map((item) => {
     return (
       "- " +
@@ -92,13 +82,16 @@ export function validateProductForm(form: ProductForm) {
   const stock = Number(form.stock || 0);
 
   return {
-    isValid: form.name.trim().length > 0 && Number.isFinite(price) && price > 0,
+    isValid:
+      form.name.trim().length > 0 &&
+      Number.isFinite(price) &&
+      price > 0,
     price: Number.isFinite(price) ? price : 0,
     stock: Number.isFinite(stock) && stock >= 0 ? stock : 0,
   };
 }
 
-export function filterProducts(
+export function getFilteredProducts(
   products: Product[],
   search: string,
   selectedCategory: string
@@ -119,10 +112,9 @@ export function filterProducts(
   });
 }
 
-export function calculateCartTotal(cart: CartItem[]) {
-  return cart.reduce((total, item) => total + item.price * item.quantity, 0);
-}
-
-export function calculateCartQuantity(cart: CartItem[]) {
-  return cart.reduce((total, item) => total + item.quantity, 0);
-}
+export const __tests__ = {
+  formatMoney,
+  buildWhatsAppText,
+  validateProductForm,
+  getFilteredProducts,
+};
