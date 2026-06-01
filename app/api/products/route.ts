@@ -4,6 +4,7 @@ import { createClient } from "@supabase/supabase-js";
 export const dynamic = "force-dynamic";
 
 type ProductBody = {
+  id?: number | string;
   name?: string;
   category?: string;
   price?: number | string;
@@ -21,6 +22,13 @@ function getSupabase() {
   }
 
   return createClient(supabaseUrl, supabaseKey);
+}
+
+function checkAdminPassword(request: Request) {
+  const adminPassword = process.env.ADMIN_PASSWORD;
+  const receivedPassword = request.headers.get("x-admin-password");
+
+  return Boolean(adminPassword && receivedPassword === adminPassword);
 }
 
 function normalizeProduct(product: any) {
@@ -48,10 +56,10 @@ export async function GET() {
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    const products = (data || []).map(normalizeProduct);
-
-    return NextResponse.json({ products });
-  } catch (error) {
+    return NextResponse.json({
+      products: (data || []).map(normalizeProduct),
+    });
+  } catch {
     return NextResponse.json(
       { error: "No se pudieron cargar los productos" },
       { status: 500 }
@@ -61,10 +69,7 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
-    const adminPassword = process.env.ADMIN_PASSWORD;
-    const receivedPassword = request.headers.get("x-admin-password");
-
-    if (!adminPassword || receivedPassword !== adminPassword) {
+    if (!checkAdminPassword(request)) {
       return NextResponse.json(
         { error: "Clave admin incorrecta" },
         { status: 401 }
@@ -116,9 +121,116 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json({ product: normalizeProduct(data) });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: "No se pudo guardar el producto" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function PATCH(request: Request) {
+  try {
+    if (!checkAdminPassword(request)) {
+      return NextResponse.json(
+        { error: "Clave admin incorrecta" },
+        { status: 401 }
+      );
+    }
+
+    const body = (await request.json()) as ProductBody;
+    const id = Number(body.id);
+
+    if (!id) {
+      return NextResponse.json(
+        { error: "Falta el ID del producto" },
+        { status: 400 }
+      );
+    }
+
+    const product = {
+      name: String(body.name || "").trim(),
+      category: String(body.category || "A medida").trim(),
+      price: Number(body.price || 0),
+      stock: Number(body.stock || 0),
+      image: String(body.image || "").trim(),
+      description: String(body.description || "").trim(),
+    };
+
+    if (!product.name) {
+      return NextResponse.json(
+        { error: "Falta el nombre del producto" },
+        { status: 400 }
+      );
+    }
+
+    if (product.price <= 0) {
+      return NextResponse.json(
+        { error: "El precio debe ser mayor a 0" },
+        { status: 400 }
+      );
+    }
+
+    if (!product.image) {
+      return NextResponse.json(
+        { error: "Falta la imagen del producto" },
+        { status: 400 }
+      );
+    }
+
+    const supabase = getSupabase();
+
+    const { data, error } = await supabase
+      .from("products")
+      .update(product)
+      .eq("id", id)
+      .select()
+      .single();
+
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    return NextResponse.json({ product: normalizeProduct(data) });
+  } catch {
+    return NextResponse.json(
+      { error: "No se pudo editar el producto" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(request: Request) {
+  try {
+    if (!checkAdminPassword(request)) {
+      return NextResponse.json(
+        { error: "Clave admin incorrecta" },
+        { status: 401 }
+      );
+    }
+
+    const body = (await request.json()) as ProductBody;
+    const id = Number(body.id);
+
+    if (!id) {
+      return NextResponse.json(
+        { error: "Falta el ID del producto" },
+        { status: 400 }
+      );
+    }
+
+    const supabase = getSupabase();
+
+    const { error } = await supabase.from("products").delete().eq("id", id);
+
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    return NextResponse.json({ ok: true });
+  } catch {
+    return NextResponse.json(
+      { error: "No se pudo eliminar el producto" },
       { status: 500 }
     );
   }

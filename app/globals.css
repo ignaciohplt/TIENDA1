@@ -707,4 +707,77 @@ button {
   .heroStats {
     grid-template-columns: 1fr;
   }
+.adminProductActions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.editButton,
+.deleteButton {
+  width: 100%;
+  border: 0;
+  border-radius: 14px;
+  padding: 12px 14px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.editButton {
+  background: #22d3ee;
+  color: #020617;
+}
+
+.editButton:hover {
+  background: #67e8f9;
+}
+
+.deleteButton {
+  background: #ef4444;
+  color: #ffffff;
+}
+
+.deleteButton:hover {
+  background: #dc2626;
+}
+
+.primaryButton:disabled,
+.secondaryButton:disabled,
+.editButton:disabled,
+.deleteButton:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.productForm .secondaryButton {
+  width: 100%;
+  margin-top: 0;
+}
+
+.emptyProducts {
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.07);
+  padding: 28px;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.emptyProducts h3 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 24px;
+}
+
+.emptyProducts p {
+  margin: 10px 0 0;
+  color: rgba(255, 255, 255, 0.58);
+  line-height: 1.55;
+}
+
+@media (max-width: 640px) {
+  .adminProductActions {
+    grid-template-columns: 1fr;
+  }
 }

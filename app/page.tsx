@@ -25,6 +25,7 @@ export default function HomePage() {
   const [form, setForm] = useState<ProductForm>(emptyForm);
   const [loadingProducts, setLoadingProducts] = useState(true);
   const [savingProduct, setSavingProduct] = useState(false);
+  const [editingProductId, setEditingProductId] = useState<number | null>(null);
 
   useEffect(() => {
     async function loadProducts() {
@@ -107,7 +108,7 @@ export default function HomePage() {
       return;
     }
 
-    const newProduct = {
+    const productData = {
       name: form.name.trim(),
       category: form.category.trim() || "A medida",
       price: validation.price,
@@ -122,12 +123,16 @@ export default function HomePage() {
       setSavingProduct(true);
 
       const response = await fetch("/api/products", {
-        method: "POST",
+        method: editingProductId ? "PATCH" : "POST",
         headers: {
           "Content-Type": "application/json",
           "x-admin-password": password,
         },
-        body: JSON.stringify(newProduct),
+        body: JSON.stringify(
+          editingProductId
+            ? { id: editingProductId, ...productData }
+            : productData
+        ),
       });
 
       const data = await response.json();
@@ -137,17 +142,103 @@ export default function HomePage() {
         return;
       }
 
-      setProducts((currentProducts) => {
-        return [data.product as Product].concat(currentProducts);
-      });
+      if (editingProductId) {
+        setProducts((currentProducts) =>
+          currentProducts.map((product) =>
+            product.id === editingProductId ? (data.product as Product) : product
+          )
+        );
+
+        setEditingProductId(null);
+        alert("Producto editado correctamente.");
+      } else {
+        setProducts((currentProducts) => {
+          return [data.product as Product].concat(currentProducts);
+        });
+
+        alert("Producto guardado en la base de datos.");
+      }
 
       setForm(emptyForm);
-      alert("Producto guardado en la base de datos.");
     } catch (error) {
       console.error("Error guardando producto", error);
       alert("No se pudo guardar el producto.");
     } finally {
       setSavingProduct(false);
+    }
+  }
+
+  function startEditProduct(product: Product) {
+    setEditingProductId(product.id);
+    setShowAdmin(true);
+
+    setForm({
+      name: product.name,
+      category: product.category,
+      price: String(product.price),
+      stock: String(product.stock),
+      image: product.image,
+      description: product.description,
+    });
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
+
+  function cancelEditProduct() {
+    setEditingProductId(null);
+    setForm(emptyForm);
+  }
+
+  async function deleteProduct(product: Product) {
+    const confirmed = window.confirm(
+      "Seguro que queres eliminar este producto?"
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    const password = window.prompt("Ingrese clave admin");
+
+    if (!password) {
+      alert("No ingresaste clave.");
+      return;
+    }
+
+    try {
+      const response = await fetch("/api/products", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "x-admin-password": password,
+        },
+        body: JSON.stringify({
+          id: product.id,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        alert(data.error || "No se pudo eliminar el producto.");
+        return;
+      }
+
+      setProducts((currentProducts) =>
+        currentProducts.filter((item) => item.id !== product.id)
+      );
+
+      setCart((currentCart) =>
+        currentCart.filter((item) => item.id !== product.id)
+      );
+
+      alert("Producto eliminado correctamente.");
+    } catch (error) {
+      console.error("Error eliminando producto", error);
+      alert("No se pudo eliminar el producto.");
     }
   }
 
@@ -259,10 +350,10 @@ export default function HomePage() {
         <section className="container adminBox">
           <div className="sectionTitle">
             <span>Panel administrador</span>
-            <h2>Cargar nuevo producto</h2>
+            <h2>{editingProductId ? "Editar producto" : "Cargar nuevo producto"}</h2>
             <p>
-              Esta version guarda los productos en Supabase. Al cargar un
-              producto te va a pedir la clave admin.
+              Esta version guarda los productos en Supabase. Para agregar,
+              editar o eliminar, te va a pedir la clave admin.
             </p>
           </div>
 
@@ -324,8 +415,22 @@ export default function HomePage() {
               type="submit"
               disabled={savingProduct}
             >
-              {savingProduct ? "Guardando..." : "Agregar producto"}
+              {savingProduct
+                ? "Guardando..."
+                : editingProductId
+                ? "Guardar cambios"
+                : "Agregar producto"}
             </button>
+
+            {editingProductId && (
+              <button
+                className="secondaryButton fieldFull"
+                type="button"
+                onClick={cancelEditProduct}
+              >
+                Cancelar edicion
+              </button>
+            )}
           </form>
         </section>
       )}
@@ -382,6 +487,8 @@ export default function HomePage() {
                   key={product.id}
                   product={product}
                   onAdd={() => addToCart(product)}
+                  onEdit={() => startEditProduct(product)}
+                  onDelete={() => deleteProduct(product)}
                 />
               ))}
             </div>
@@ -501,9 +608,13 @@ function InputBox({
 function ProductCard({
   product,
   onAdd,
+  onEdit,
+  onDelete,
 }: {
   product: Product;
   onAdd: () => void;
+  onEdit: () => void;
+  onDelete: () => void;
 }) {
   return (
     <article className="productCard">
@@ -521,6 +632,15 @@ function ProductCard({
           <strong>{formatMoney(product.price)}</strong>
           <button type="button" onClick={onAdd}>
             Comprar
+          </button>
+        </div>
+
+        <div className="adminProductActions">
+          <button type="button" className="editButton" onClick={onEdit}>
+            Editar
+          </button>
+          <button type="button" className="deleteButton" onClick={onDelete}>
+            Eliminar
           </button>
         </div>
       </div>
