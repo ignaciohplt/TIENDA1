@@ -351,7 +351,7 @@ export default function HomePage() {
 
           <div className="heroCard">
             <img
-              src="/portada2.png"
+              src="/portada1.png"
               alt="Panel decorativo metálico en ambiente moderno"
             />
             <div className="heroStats">
@@ -374,8 +374,6 @@ export default function HomePage() {
 
       <section className="benefitsStrip">
         <div className="container benefitsGrid">
-
-/>
 
         </div>
       </section>
