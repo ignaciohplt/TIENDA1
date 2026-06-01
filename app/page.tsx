@@ -375,25 +375,25 @@ export default function HomePage() {
       <section className="benefitsStrip">
         <div className="container benefitsGrid">
           <BenefitItem
-            icon="🚚"
-            title="Envíos a todo el país"
-            text="Rápidos y seguros"
-          />
-          <BenefitItem
-            icon="🔒"
-            title="Compra segura"
-            text="Protegemos tus datos"
-          />
-          <BenefitItem
-            icon="💬"
-            title="24/7"
-            text="Atención personalizada"
-          />
-          <BenefitItem
-            icon="🛡️"
-            title="Calidad asegurada"
-            text="Terminaciones premium"
-          />
+  icon="✓"
+  title="Envíos a todo el país"
+  text="Rápidos y seguros"
+/>
+<BenefitItem
+  icon="🔒"
+  title="Compra segura"
+  text="Protegemos tus datos"
+/>
+<BenefitItem
+  icon="24"
+  title="Atención 24/7"
+  text="Consultas por WhatsApp"
+/>
+<BenefitItem
+  icon="★"
+  title="Calidad asegurada"
+  text="Terminaciones premium"
+/>
         </div>
       </section>
 
