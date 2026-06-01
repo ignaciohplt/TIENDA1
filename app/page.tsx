@@ -22,10 +22,16 @@ export default function HomePage() {
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("Todos");
   const [showAdmin, setShowAdmin] = useState(false);
+  const [adminMode, setAdminMode] = useState(false);
   const [form, setForm] = useState<ProductForm>(emptyForm);
   const [loadingProducts, setLoadingProducts] = useState(true);
   const [savingProduct, setSavingProduct] = useState(false);
   const [editingProductId, setEditingProductId] = useState<number | null>(null);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    setAdminMode(params.get("admin") === "1");
+  }, []);
 
   useEffect(() => {
     async function loadProducts() {
@@ -93,6 +99,11 @@ export default function HomePage() {
 
   async function addProduct(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    if (!adminMode) {
+      alert("No tenes permiso para cargar productos.");
+      return;
+    }
 
     const validation = validateProductForm(form);
 
@@ -169,6 +180,10 @@ export default function HomePage() {
   }
 
   function startEditProduct(product: Product) {
+    if (!adminMode) {
+      return;
+    }
+
     setEditingProductId(product.id);
     setShowAdmin(true);
 
@@ -193,6 +208,10 @@ export default function HomePage() {
   }
 
   async function deleteProduct(product: Product) {
+    if (!adminMode) {
+      return;
+    }
+
     const confirmed = window.confirm(
       "Seguro que queres eliminar este producto?"
     );
@@ -268,9 +287,13 @@ export default function HomePage() {
           <nav className="nav">
             <a href="#productos">Productos</a>
             <a href="#servicios">Servicios</a>
-            <button type="button" onClick={() => setShowAdmin(!showAdmin)}>
-              Panel admin
-            </button>
+
+            {adminMode && (
+              <button type="button" onClick={() => setShowAdmin(!showAdmin)}>
+                Panel admin
+              </button>
+            )}
+
             <a className="cartPill" href="#carrito">
               Carrito: {cartQuantity}
             </a>
@@ -294,13 +317,16 @@ export default function HomePage() {
               <a className="primaryButton" href="#productos">
                 Ver productos
               </a>
-              <button
-                type="button"
-                className="secondaryButton"
-                onClick={() => setShowAdmin(true)}
-              >
-                Subir producto
-              </button>
+
+              {adminMode && (
+                <button
+                  type="button"
+                  className="secondaryButton"
+                  onClick={() => setShowAdmin(true)}
+                >
+                  Subir producto
+                </button>
+              )}
             </div>
           </div>
 
@@ -346,7 +372,7 @@ export default function HomePage() {
         />
       </section>
 
-      {showAdmin && (
+      {showAdmin && adminMode && (
         <section className="container adminBox">
           <div className="sectionTitle">
             <span>Panel administrador</span>
@@ -489,6 +515,7 @@ export default function HomePage() {
                   onAdd={() => addToCart(product)}
                   onEdit={() => startEditProduct(product)}
                   onDelete={() => deleteProduct(product)}
+                  showAdminActions={adminMode}
                 />
               ))}
             </div>
@@ -610,11 +637,13 @@ function ProductCard({
   onAdd,
   onEdit,
   onDelete,
+  showAdminActions,
 }: {
   product: Product;
   onAdd: () => void;
   onEdit: () => void;
   onDelete: () => void;
+  showAdminActions: boolean;
 }) {
   return (
     <article className="productCard">
@@ -635,14 +664,16 @@ function ProductCard({
           </button>
         </div>
 
-        <div className="adminProductActions">
-          <button type="button" className="editButton" onClick={onEdit}>
-            Editar
-          </button>
-          <button type="button" className="deleteButton" onClick={onDelete}>
-            Eliminar
-          </button>
-        </div>
+        {showAdminActions && (
+          <div className="adminProductActions">
+            <button type="button" className="editButton" onClick={onEdit}>
+              Editar
+            </button>
+            <button type="button" className="deleteButton" onClick={onDelete}>
+              Eliminar
+            </button>
+          </div>
+        )}
       </div>
     </article>
   );
