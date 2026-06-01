@@ -118,11 +118,12 @@ export function createProductFromForm(form: ProductForm): Product | null {
     stock: validation.stock,
     image: form.image.trim() || DEFAULT_IMAGE,
     description:
-      form.description.trim() || "Producto cargado desde el panel administrador.",
+      form.description.trim() ||
+      "Producto cargado desde el panel administrador.",
   };
 }
 
-export function getFilteredProducts(
+export function filterProducts(
   products: Product[],
   search: string,
   selectedCategory: string
@@ -141,6 +142,14 @@ export function getFilteredProducts(
 
     return matchesText && matchesCategory;
   });
+}
+
+export function getFilteredProducts(
+  products: Product[],
+  search: string,
+  selectedCategory: string
+) {
+  return filterProducts(products, search, selectedCategory);
 }
 
 export function addProductToCart(cart: CartItem[], product: Product) {
@@ -178,6 +187,7 @@ export const __tests__ = {
   buildWhatsAppText,
   validateProductForm,
   createProductFromForm,
+  filterProducts,
   getFilteredProducts,
   addProductToCart,
   removeProductFromCart,
