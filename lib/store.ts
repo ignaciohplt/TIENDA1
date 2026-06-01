@@ -44,16 +44,15 @@ export const emptyForm: ProductForm = {
 };
 
 export const initialProducts: Product[] = [
-  {
-    id: 1,
-    name: "Corte laser en chapa",
-    category: "Servicios",
-    price: 220.000,
-    stock: 100,
-    image: https://http2.mlstatic.com/D_NQ_NP_2X_810475-MLA107866716004_032026-F.webp,
-    description:
-      "Paneles Divisor Ambientes Separador.",
-  },
+{
+  id: 1,
+  name: "Panel divisor ambientes",
+  category: "Decoracion",
+  price: 220000,
+  stock: 100,
+  image: "https://http2.mlstatic.com/D_NQ_NP_2X_810475-MLA107866716004_032026-F.webp",
+  description: "Paneles Divisor Ambientes Separador.",
+},
   
 ];
 
