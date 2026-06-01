@@ -379,21 +379,7 @@ export default function HomePage() {
   title="Envíos a todo el país"
   text="Rápidos y seguros"
 />
-<BenefitItem
-  icon="🔒"
-  title="Compra segura"
-  text="Protegemos tus datos"
-/>
-<BenefitItem
-  icon="24"
-  title="Atención 24/7"
-  text="Consultas por WhatsApp"
-/>
-<BenefitItem
-  icon="★"
-  title="Calidad asegurada"
-  text="Terminaciones premium"
-/>
+
         </div>
       </section>
 
