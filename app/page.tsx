@@ -166,10 +166,10 @@ export default function HomePage() {
     <main className="site">
       <header className="header">
         <div className="container headerContent">
-          <a className="brand" href="#inicio" aria-label="LaserCut Pro">
+          <a className="brand" href="#inicio" aria-label="MetalTec">
             <img src="/logo.svg" alt="MetalTec" className="brandLogo" />
             <div>
-              <strong>LaserCut Pro</strong>
+              <strong>MetalTec</strong>
               <span>Corte laser industrial</span>
             </div>
           </a>
@@ -456,7 +456,7 @@ export default function HomePage() {
       </section>
 
       <footer className="footer">
-        <strong>LaserCut Pro</strong>
+        <strong>MetalTec</strong>
         <span>Precision en corte laser - Tienda online industrial</span>
       </footer>
     </main>
