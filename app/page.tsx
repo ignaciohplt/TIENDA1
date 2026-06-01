@@ -20,7 +20,9 @@ export default function HomePage() {
   const [products, setProducts] = useState<Product[]>(initialProducts);
   const [cart, setCart] = useState<CartItem[]>([]);
   const [search, setSearch] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState(categories[0] || "Todos");
+  const [selectedCategory, setSelectedCategory] = useState(
+    categories[0] || "Todos"
+  );
   const [showAdmin, setShowAdmin] = useState(false);
   const [adminMode, setAdminMode] = useState(false);
   const [form, setForm] = useState<ProductForm>(emptyForm);
@@ -101,14 +103,14 @@ export default function HomePage() {
     event.preventDefault();
 
     if (!adminMode) {
-      alert("No tenes permiso para cargar productos.");
+      alert("No tenés permiso para cargar productos.");
       return;
     }
 
     const validation = validateProductForm(form);
 
     if (!validation.isValid) {
-      alert("Completa nombre y precio mayor a 0.");
+      alert("Completá nombre y precio mayor a 0.");
       return;
     }
 
@@ -156,7 +158,9 @@ export default function HomePage() {
       if (editingProductId) {
         setProducts((currentProducts) =>
           currentProducts.map((product) =>
-            product.id === editingProductId ? (data.product as Product) : product
+            product.id === editingProductId
+              ? (data.product as Product)
+              : product
           )
         );
 
@@ -213,7 +217,7 @@ export default function HomePage() {
     }
 
     const confirmed = window.confirm(
-      "Seguro que queres eliminar este producto?"
+      "¿Seguro que querés eliminar este producto?"
     );
 
     if (!confirmed) {
@@ -289,8 +293,10 @@ export default function HomePage() {
           </a>
 
           <nav className="nav">
+            <a href="#inicio">Inicio</a>
             <a href="#productos">Productos</a>
             <a href="#servicios">Servicios</a>
+            <a href="#opiniones">Opiniones</a>
 
             {adminMode && (
               <button type="button" onClick={() => setShowAdmin(!showAdmin)}>
@@ -310,16 +316,25 @@ export default function HomePage() {
         <div className="container heroGrid">
           <div className="heroText">
             <span className="eyebrow">Diseño para hogares y espacios</span>
-            <h1>Productos metálicos de diseño para decorar tu espacio.</h1>
+            <h1>Diseño metálico que transforma espacios.</h1>
             <p>
-             Productos de diseño para hogares, locales y espacios comerciales.
-             Paneles decorativos, carteles, cuadros, separadores y piezas metálicas
-             listas para usar.
+              Productos de diseño para hogares, locales y espacios comerciales.
+              Paneles decorativos, carteles, cuadros, separadores y piezas
+              metálicas listas para usar.
             </p>
 
             <div className="heroActions">
               <a className="primaryButton" href="#productos">
-                Ver productos
+                Ver catálogo
+              </a>
+
+              <a
+                className="secondaryButton"
+                href={whatsappUrl}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Hacer un pedido
               </a>
 
               {adminMode && (
@@ -336,8 +351,8 @@ export default function HomePage() {
 
           <div className="heroCard">
             <img
-              src="/portada1.png"
-              alt="Producción industrial con máquinas de corte láser"
+              src="/portada2.png"
+              alt="Panel decorativo metálico en ambiente moderno"
             />
             <div className="heroStats">
               <div>
@@ -345,32 +360,61 @@ export default function HomePage() {
                 <span>productos</span>
               </div>
               <div>
-                <strong>24/7Hs</strong>
-                <span>consulta</span>
+                <strong>24/7</strong>
+                <span>consultas</span>
               </div>
               <div>
-                <strong>UNICOS</strong>
-                <span>diseño</span>
+                <strong>ÚNICOS</strong>
+                <span>diseños</span>
               </div>
             </div>
           </div>
         </div>
       </section>
 
+      <section className="benefitsStrip">
+        <div className="container benefitsGrid">
+          <BenefitItem
+            icon="🚚"
+            title="Envíos a todo el país"
+            text="Rápidos y seguros"
+          />
+          <BenefitItem
+            icon="🔒"
+            title="Compra segura"
+            text="Protegemos tus datos"
+          />
+          <BenefitItem
+            icon="💬"
+            title="24/7"
+            text="Atención personalizada"
+          />
+          <BenefitItem
+            icon="🛡️"
+            title="Calidad asegurada"
+            text="Terminaciones premium"
+          />
+        </div>
+      </section>
+
       <section id="servicios" className="container serviceGrid">
         <InfoCard
+          icon="▧"
           title="Paneles decorativos"
           text="Diseños metálicos calados para dividir, decorar y renovar tus espacios."
         />
         <InfoCard
+          icon="✎"
           title="Diseño metálico"
           text="Productos decorativos, cartelería y diseños personalizados."
         />
         <InfoCard
+          icon="▣"
           title="Catálogo online"
           text="Productos con foto, precio, stock y descripción."
         />
         <InfoCard
+          icon="☏"
           title="Pedido rápido"
           text="Consulta directa por WhatsApp o pago online."
         />
@@ -380,7 +424,9 @@ export default function HomePage() {
         <section className="container adminBox">
           <div className="sectionTitle">
             <span>Panel administrador</span>
-            <h2>{editingProductId ? "Editar producto" : "Cargar nuevo producto"}</h2>
+            <h2>
+              {editingProductId ? "Editar producto" : "Cargar nuevo producto"}
+            </h2>
             <p>
               Esta versión guarda los productos en Supabase. Para agregar,
               editar o eliminar, te va a pedir la clave admin.
@@ -470,7 +516,7 @@ export default function HomePage() {
           <div className="sectionTitle shopTitle">
             <div>
               <span>Catálogo</span>
-              <h2>PRODUCTOS</h2>
+              <h2>Productos</h2>
               <p>Elegí tu producto y consultá directo por WhatsApp.</p>
             </div>
 
@@ -593,6 +639,83 @@ export default function HomePage() {
         </aside>
       </section>
 
+      <section id="opiniones" className="container reviewsSection">
+        <div className="sectionTitle reviewsTitle">
+          <span>Opiniones</span>
+          <h2>Lo que valoran nuestros clientes</h2>
+          <p>
+            Trabajamos cada pedido con atención personalizada, diseño cuidado y
+            terminaciones pensadas para que cada pieza se adapte al espacio.
+          </p>
+        </div>
+
+        <div className="reviewsGrid">
+          <article className="reviewCard">
+            <div className="reviewStars">★★★★★</div>
+            <p>
+              “Muy buena atención y asesoramiento para elegir el diseño
+              adecuado. Ideal para quienes buscan algo decorativo y a medida.”
+            </p>
+            <div className="reviewAuthor">
+              <img src="/productos/review-1.png" alt="Panel decorativo" />
+              <div>
+                <strong>Diseño personalizado</strong>
+                <span>Paneles y decoración metálica</span>
+              </div>
+            </div>
+          </article>
+
+          <article className="reviewCard">
+            <div className="reviewStars">★★★★★</div>
+            <p>
+              “Los productos tienen una terminación prolija y moderna. Se nota
+              el cuidado en los detalles y en la presentación.”
+            </p>
+            <div className="reviewAuthor">
+              <img
+                src="/productos/review-2.png"
+                alt="Interior con panel metálico"
+              />
+              <div>
+                <strong>Terminación premium</strong>
+                <span>Productos metálicos decorativos</span>
+              </div>
+            </div>
+          </article>
+
+          <article className="reviewCard">
+            <div className="reviewStars">★★★★★</div>
+            <p>
+              “Una buena opción para renovar espacios con piezas metálicas
+              distintas, modernas y pensadas para hogares, locales u oficinas.”
+            </p>
+            <div className="reviewAuthor">
+              <img src="/productos/review-3.png" alt="Producto metálico" />
+              <div>
+                <strong>Espacios únicos</strong>
+                <span>Diseño metálico para interiores</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section className="container ctaStrip">
+        <div>
+          <h2>¿Tenés un proyecto en mente?</h2>
+          <p>Contanos tu idea y te ayudamos a hacerlo realidad.</p>
+        </div>
+
+        <a
+          className="whatsappButton ctaButton"
+          href={whatsappUrl}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Consultar por WhatsApp
+        </a>
+      </section>
+
       <footer className="footer">
         <strong>Metalia Design</strong>
         <span>Diseños metálicos, decoración y corte láser</span>
@@ -601,11 +724,42 @@ export default function HomePage() {
   );
 }
 
-function InfoCard({ title, text }: { title: string; text: string }) {
+function BenefitItem({
+  icon,
+  title,
+  text,
+}: {
+  icon: string;
+  title: string;
+  text: string;
+}) {
+  return (
+    <article className="benefitItem">
+      <span>{icon}</span>
+      <div>
+        <strong>{title}</strong>
+        <p>{text}</p>
+      </div>
+    </article>
+  );
+}
+
+function InfoCard({
+  icon,
+  title,
+  text,
+}: {
+  icon: string;
+  title: string;
+  text: string;
+}) {
   return (
     <article className="infoCard">
-      <strong>{title}</strong>
-      <p>{text}</p>
+      <span className="infoIcon">{icon}</span>
+      <div>
+        <strong>{title}</strong>
+        <p>{text}</p>
+      </div>
     </article>
   );
 }
