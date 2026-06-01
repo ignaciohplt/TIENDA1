@@ -243,7 +243,7 @@ export default function HomePage() {
   }
 
   const whatsappNumber =
-    process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "5493410000000";
+    process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "5493415896964";
 
   const whatsappText = buildWhatsAppText(cart, cartTotal);
 
