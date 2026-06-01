@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import {
   CartItem,
   DEFAULT_IMAGE,
@@ -24,34 +24,6 @@ export default function HomePage() {
   const [selectedCategory, setSelectedCategory] = useState("Todos");
   const [showAdmin, setShowAdmin] = useState(false);
   const [form, setForm] = useState<ProductForm>(emptyForm);
-  const [hydrated, setHydrated] = useState(false);
-
-  useEffect(() => {
-    const savedProducts = window.localStorage.getItem("lasercut-products");
-    const savedCart = window.localStorage.getItem("lasercut-cart");
-
-    if (savedProducts) {
-      setProducts(JSON.parse(savedProducts) as Product[]);
-    }
-
-    if (savedCart) {
-      setCart(JSON.parse(savedCart) as CartItem[]);
-    }
-
-    setHydrated(true);
-  }, []);
-
-  useEffect(() => {
-    if (hydrated) {
-      window.localStorage.setItem("lasercut-products", JSON.stringify(products));
-    }
-  }, [hydrated, products]);
-
-  useEffect(() => {
-    if (hydrated) {
-      window.localStorage.setItem("lasercut-cart", JSON.stringify(cart));
-    }
-  }, [cart, hydrated]);
 
   const filteredProducts = useMemo(() => {
     return filterProducts(products, search, selectedCategory);
@@ -69,6 +41,7 @@ export default function HomePage() {
           if (item.id === product.id) {
             return { ...item, quantity: item.quantity + 1 };
           }
+
           return item;
         });
       }
@@ -78,7 +51,9 @@ export default function HomePage() {
   }
 
   function removeFromCart(productId: number) {
-    setCart((currentCart) => currentCart.filter((item) => item.id !== productId));
+    setCart((currentCart) => {
+      return currentCart.filter((item) => item.id !== productId);
+    });
   }
 
   function clearCart() {
@@ -103,7 +78,8 @@ export default function HomePage() {
       stock: validation.stock,
       image: form.image.trim() || DEFAULT_IMAGE,
       description:
-        form.description.trim() || "Producto cargado desde el panel administrador.",
+        form.description.trim() ||
+        "Producto cargado desde el panel administrador.",
     };
 
     setProducts((currentProducts) => [newProduct].concat(currentProducts));
@@ -112,9 +88,14 @@ export default function HomePage() {
 
   const whatsappNumber =
     process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "5493410000000";
+
   const whatsappText = buildWhatsAppText(cart, cartTotal);
+
   const whatsappUrl =
-    "https://wa.me/" + whatsappNumber + "?text=" + encodeURIComponent(whatsappText);
+    "https://wa.me/" +
+    whatsappNumber +
+    "?text=" +
+    encodeURIComponent(whatsappText);
 
   return (
     <main className="site">
@@ -149,8 +130,10 @@ export default function HomePage() {
             <h1>Productos metalicos y cortes laser profesionales.</h1>
             <p>
               Tienda online para publicar productos, servicios de corte laser,
-              chapas caladas, carteleria, caños cortados y trabajos personalizados.
+              chapas caladas, carteleria, caños cortados y trabajos
+              personalizados.
             </p>
+
             <div className="heroActions">
               <a className="primaryButton" href="#productos">
                 Ver productos
@@ -189,10 +172,22 @@ export default function HomePage() {
       </section>
 
       <section id="servicios" className="container serviceGrid">
-        <InfoCard title="Corte laser" text="Chapas, caños, piezas y produccion seriada." />
-        <InfoCard title="Precision" text="Terminaciones limpias y medidas confiables." />
-        <InfoCard title="Catalogo" text="Productos con foto, precio, stock y descripcion." />
-        <InfoCard title="Pedido rapido" text="Consulta directa por WhatsApp o pago online." />
+        <InfoCard
+          title="Corte laser"
+          text="Chapas, caños, piezas y produccion seriada."
+        />
+        <InfoCard
+          title="Precision"
+          text="Terminaciones limpias y medidas confiables."
+        />
+        <InfoCard
+          title="Catalogo"
+          text="Productos con foto, precio, stock y descripcion."
+        />
+        <InfoCard
+          title="Pedido rapido"
+          text="Consulta directa por WhatsApp o pago online."
+        />
       </section>
 
       {showAdmin && (
@@ -201,8 +196,9 @@ export default function HomePage() {
             <span>Panel administrador</span>
             <h2>Cargar nuevo producto</h2>
             <p>
-              Esta version guarda los productos en el navegador. En una version
-              real se conecta a una base de datos con usuario y contraseña.
+              Esta version permite probar la carga de productos. Para que los
+              productos queden guardados definitivamente hay que cargarlos en
+              lib/store.ts o conectar una base de datos.
             </p>
           </div>
 
@@ -213,12 +209,14 @@ export default function HomePage() {
               onChange={(value) => setForm({ ...form, name: value })}
               placeholder="Ej: Chapa calada personalizada"
             />
+
             <InputBox
               label="Categoria"
               value={form.category}
               onChange={(value) => setForm({ ...form, category: value })}
               placeholder="Ej: Chapas"
             />
+
             <InputBox
               label="Precio"
               type="number"
@@ -226,6 +224,7 @@ export default function HomePage() {
               onChange={(value) => setForm({ ...form, price: value })}
               placeholder="Ej: 25000"
             />
+
             <InputBox
               label="Stock"
               type="number"
@@ -233,6 +232,7 @@ export default function HomePage() {
               onChange={(value) => setForm({ ...form, stock: value })}
               placeholder="Ej: 10"
             />
+
             <label className="field fieldFull">
               <span>URL de imagen</span>
               <input
@@ -243,6 +243,7 @@ export default function HomePage() {
                 placeholder="Pega la URL de una foto de maquina laser o producto"
               />
             </label>
+
             <label className="field fieldFull">
               <span>Descripcion</span>
               <textarea
@@ -253,6 +254,7 @@ export default function HomePage() {
                 placeholder="Descripcion breve del producto"
               />
             </label>
+
             <button className="primaryButton fieldFull" type="submit">
               Agregar producto
             </button>
@@ -292,15 +294,25 @@ export default function HomePage() {
             ))}
           </div>
 
-          <div className="productsGrid">
-            {filteredProducts.map((product) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                onAdd={() => addToCart(product)}
-              />
-            ))}
-          </div>
+          {filteredProducts.length === 0 ? (
+            <div className="emptyProducts">
+              <h3>No hay productos cargados</h3>
+              <p>
+                Agrega productos desde lib/store.ts o usa el panel admin para
+                probar la carga visual.
+              </p>
+            </div>
+          ) : (
+            <div className="productsGrid">
+              {filteredProducts.map((product) => (
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  onAdd={() => addToCart(product)}
+                />
+              ))}
+            </div>
+          )}
         </div>
 
         <aside id="carrito" className="cartBox">
@@ -322,7 +334,8 @@ export default function HomePage() {
                   <div>
                     <strong>{item.name}</strong>
                     <span>
-                      x{item.quantity} - {formatMoney(item.price * item.quantity)}
+                      x{item.quantity} -{" "}
+                      {formatMoney(item.price * item.quantity)}
                     </span>
                   </div>
                   <button
@@ -420,10 +433,12 @@ function ProductCard({
         <img src={product.image} alt={product.name} />
         <span>{product.category}</span>
       </div>
+
       <div className="productBody">
         <small>Stock: {product.stock}</small>
         <h3>{product.name}</h3>
         <p>{product.description}</p>
+
         <div className="productFooter">
           <strong>{formatMoney(product.price)}</strong>
           <button type="button" onClick={onAdd}>
