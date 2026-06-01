@@ -80,7 +80,7 @@ export function buildWhatsAppText(cart: CartItem[], total: number) {
   });
 
   const messageLines = [
-    "Hola LaserCut Pro, quiero consultar por estos productos:",
+    "Hola MetalTec, quiero consultar por estos productos:",
     "",
   ]
     .concat(productLines)
