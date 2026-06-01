@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1400" height="800" viewBox="0 0 1400 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <title>Metalia Design Logo</title>
+  <desc>Logo vectorial rosa y violeta para diseño metálico y corte láser.</desc>
+
+  <defs>
+    <linearGradient id="pinkPurple" x1="160" y1="160" x2="620" y2="560" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#F472B6"/>
+      <stop offset="0.45" stop-color="#EC4899"/>
+      <stop offset="1" stop-color="#6D28D9"/>
+    </linearGradient>
+
+    <linearGradient id="textGradient" x1="620" y1="300" x2="1240" y2="300" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#EC4899"/>
+      <stop offset="1" stop-color="#6D28D9"/>
+    </linearGradient>
+
+    <radialGradient id="sparkGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(365 560) rotate(90) scale(72)">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="0.35" stop-color="#F472B6"/>
+      <stop offset="1" stop-color="#EC4899" stop-opacity="0"/>
+    </radialGradient>
+
+    <filter id="softShadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="18" stdDeviation="20" flood-color="#7E22CE" flood-opacity="0.22"/>
+    </filter>
+  </defs>
+
+  <rect width="1400" height="800" rx="0" fill="#FFF7FB"/>
+
+  <g filter="url(#softShadow)">
+    <!-- Abstract folded metal M -->
+    <path d="M135 505 L135 190 L275 350 L275 560 Z" fill="url(#pinkPurple)"/>
+    <path d="M595 505 L595 190 L455 350 L455 560 Z" fill="url(#pinkPurple)"/>
+    <path d="M275 350 L365 455 L455 350 L365 560 Z" fill="url(#pinkPurple)" opacity="0.96"/>
+
+    <!-- Inner cut facets -->
+    <path d="M170 260 L245 370 L245 505 L170 420 Z" fill="#FFF7FB" opacity="0.92"/>
+    <path d="M560 260 L485 370 L485 505 L560 420 Z" fill="#FFF7FB" opacity="0.92"/>
+    <path d="M365 455 L428 365 L365 560 Z" fill="#3B0764" opacity="0.42"/>
+    <path d="M365 455 L302 365 L365 560 Z" fill="#831843" opacity="0.25"/>
+
+    <!-- Laser beam -->
+    <line x1="365" y1="330" x2="365" y2="560" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round"/>
+    <line x1="365" y1="330" x2="365" y2="560" stroke="#EC4899" stroke-width="3" stroke-linecap="round"/>
+
+    <!-- Cutting base -->
+    <path d="M90 578 C210 564 285 558 365 560 C445 562 520 564 640 578" stroke="#6D28D9" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="365" cy="560" r="74" fill="url(#sparkGlow)"/>
+
+    <!-- Sparks -->
+    <g stroke-linecap="round">
+      <path d="M365 560 L280 510" stroke="#EC4899" stroke-width="4"/>
+      <path d="M365 560 L245 555" stroke="#EC4899" stroke-width="3"/>
+      <path d="M365 560 L470 512" stroke="#6D28D9" stroke-width="4"/>
+      <path d="M365 560 L495 560" stroke="#6D28D9" stroke-width="3"/>
+      <path d="M365 560 L310 475" stroke="#F472B6" stroke-width="3"/>
+      <path d="M365 560 L420 472" stroke="#C084FC" stroke-width="3"/>
+      <path d="M365 560 L330 605" stroke="#EC4899" stroke-width="3"/>
+      <path d="M365 560 L400 605" stroke="#6D28D9" stroke-width="3"/>
+    </g>
+  </g>
+
+  <!-- Wordmark -->
+  <g>
+    <text x="690" y="390"
+          font-family="Montserrat, Poppins, Arial, sans-serif"
+          font-size="108"
+          font-weight="800"
+          letter-spacing="10"
+          fill="url(#textGradient)">METALIA</text>
+
+    <line x1="690" y1="465" x2="820" y2="465" stroke="#EC4899" stroke-width="5" stroke-linecap="round"/>
+    <text x="860" y="488"
+          font-family="Montserrat, Poppins, Arial, sans-serif"
+          font-size="54"
+          font-weight="500"
+          letter-spacing="26"
+          fill="#6D28D9">DESIGN</text>
+    <line x1="1185" y1="465" x2="1320" y2="465" stroke="#6D28D9" stroke-width="5" stroke-linecap="round"/>
+
+    <text x="695" y="540"
+          font-family="Montserrat, Poppins, Arial, sans-serif"
+          font-size="22"
+          font-weight="700"
+          letter-spacing="8"
+          fill="#831843">DISEÑO METÁLICO · CORTE LÁSER · DECORACIÓN</text>
+  </g>
+</svg>
