@@ -638,7 +638,7 @@ export default function HomePage() {
               adecuado. Ideal para quienes buscan algo decorativo y a medida.”
             </p>
             <div className="reviewAuthor">
-              <img src="/productos/review-1.png" alt="Panel decorativo" />
+              <img src="/3.png" alt="Cava Organizadora" />
               <div>
                 <strong>Diseño personalizado</strong>
                 <span>Paneles y decoración metálica</span>
@@ -654,8 +654,8 @@ export default function HomePage() {
             </p>
             <div className="reviewAuthor">
               <img
-                src="/productos/review-2.png"
-                alt="Interior con panel metálico"
+                src="/2.png"
+                alt="Cuadro decorativo"
               />
               <div>
                 <strong>Terminación premium</strong>
@@ -671,7 +671,7 @@ export default function HomePage() {
               distintas, modernas y pensadas para hogares, locales u oficinas.”
             </p>
             <div className="reviewAuthor">
-              <img src="/productos/review-3.png" alt="Producto metálico" />
+              <img src="/1.png" alt="Producto metálico" />
               <div>
                 <strong>Espacios únicos</strong>
                 <span>Diseño metálico para interiores</span>
