@@ -8,8 +8,8 @@ html {
 
 body {
   margin: 0;
-  background: #fff7fb;
-  color: #2a102f;
+  background: #f5f0e8;
+  color: #2b2b25;
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -31,9 +31,9 @@ button {
 .site {
   min-height: 100vh;
   background:
-    radial-gradient(circle at 15% 10%, rgba(236, 72, 153, 0.18), transparent 32%),
-    radial-gradient(circle at 85% 12%, rgba(168, 85, 247, 0.18), transparent 28%),
-    linear-gradient(135deg, #fff7fb 0%, #fae8ff 45%, #fdf2f8 100%);
+    radial-gradient(circle at 15% 10%, rgba(178, 142, 102, 0.18), transparent 34%),
+    radial-gradient(circle at 85% 8%, rgba(105, 126, 95, 0.16), transparent 30%),
+    #f5f0e8;
 }
 
 .container {
@@ -47,8 +47,8 @@ button {
   position: sticky;
   top: 0;
   z-index: 50;
-  border-bottom: 1px solid rgba(190, 24, 93, 0.14);
-  background: rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid rgba(76, 71, 60, 0.12);
+  background: rgba(250, 247, 241, 0.94);
   backdrop-filter: blur(16px);
 }
 
@@ -67,29 +67,26 @@ button {
 }
 
 .brandLogo {
-  width: 52px;
-  height: 52px;
-  border-radius: 18px;
-  box-shadow: 0 0 28px rgba(236, 72, 153, 0.28);
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(86, 80, 66, 0.18);
 }
 
 .brand strong {
   display: block;
-  font-size: 27px;
-  font-weight: 950;
-  letter-spacing: -0.06em;
-  background: linear-gradient(90deg, #be185d, #7e22ce, #ec4899);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  color: #2b2b25;
 }
 
 .brand span {
   display: block;
   margin-top: 4px;
-  color: #9d174d;
+  color: #6f7f5f;
   font-size: 11px;
-  font-weight: 900;
+  font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.18em;
 }
@@ -104,22 +101,21 @@ button {
 .nav button {
   border: 0;
   background: transparent;
-  color: #581c87;
+  color: rgba(43, 43, 37, 0.72);
   font-size: 14px;
-  font-weight: 900;
+  font-weight: 800;
 }
 
 .nav a:hover,
 .nav button:hover {
-  color: #db2777;
+  color: #8a5f3d;
 }
 
 .nav .cartPill {
   padding: 12px 16px;
   border-radius: 14px;
-  background: linear-gradient(135deg, #ec4899, #9333ea);
+  background: #6f7f5f;
   color: #ffffff;
-  box-shadow: 0 10px 28px rgba(236, 72, 153, 0.25);
 }
 
 /* HERO */
@@ -127,7 +123,7 @@ button {
 .hero {
   position: relative;
   overflow: hidden;
-  border-bottom: 1px solid rgba(190, 24, 93, 0.14);
+  border-bottom: 1px solid rgba(43, 43, 37, 0.08);
   background-image: url("/portada2.png");
   background-size: cover;
   background-position: center;
@@ -138,9 +134,9 @@ button {
   inset: 0;
   background: linear-gradient(
     90deg,
-    rgba(255, 247, 251, 0.96),
-    rgba(250, 232, 255, 0.88),
-    rgba(236, 72, 153, 0.2)
+    rgba(245, 240, 232, 0.96),
+    rgba(245, 240, 232, 0.84),
+    rgba(245, 240, 232, 0.45)
   );
 }
 
@@ -158,12 +154,12 @@ button {
   display: inline-flex;
   margin-bottom: 18px;
   padding: 10px 14px;
-  border: 1px solid rgba(236, 72, 153, 0.35);
+  border: 1px solid rgba(111, 127, 95, 0.28);
   border-radius: 999px;
-  background: rgba(236, 72, 153, 0.1);
-  color: #be185d;
+  background: rgba(111, 127, 95, 0.12);
+  color: #526247;
   font-size: 12px;
-  font-weight: 950;
+  font-weight: 900;
   letter-spacing: 0.18em;
   text-transform: uppercase;
 }
@@ -171,19 +167,16 @@ button {
 .hero h1 {
   margin: 0;
   max-width: 780px;
+  color: #2b2b25;
   font-size: clamp(42px, 7vw, 76px);
   line-height: 0.95;
   letter-spacing: -0.07em;
-  background: linear-gradient(90deg, #831843, #7e22ce, #ec4899);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
 }
 
 .hero p {
   max-width: 650px;
   margin: 24px 0 0;
-  color: rgba(42, 16, 47, 0.76);
+  color: rgba(43, 43, 37, 0.72);
   font-size: 18px;
   line-height: 1.7;
 }
@@ -209,38 +202,38 @@ button {
   border: 0;
   border-radius: 16px;
   padding: 0 22px;
-  font-weight: 950;
+  font-weight: 900;
 }
 
 .primaryButton {
-  background: linear-gradient(135deg, #ec4899, #9333ea);
+  background: #6f7f5f;
   color: #ffffff;
-  box-shadow: 0 12px 34px rgba(236, 72, 153, 0.28);
+  box-shadow: 0 12px 30px rgba(111, 127, 95, 0.2);
 }
 
 .primaryButton:hover {
-  background: linear-gradient(135deg, #f472b6, #a855f7);
+  background: #5f704f;
 }
 
 .secondaryButton {
-  border: 1px solid rgba(236, 72, 153, 0.25);
-  background: rgba(255, 255, 255, 0.78);
-  color: #9d174d;
+  border: 1px solid rgba(43, 43, 37, 0.16);
+  background: rgba(255, 255, 255, 0.55);
+  color: #2b2b25;
 }
 
 .secondaryButton:hover {
-  border-color: #ec4899;
-  color: #be185d;
+  border-color: #b28e66;
+  color: #8a5f3d;
 }
 
 /* HERO CARD */
 
 .heroCard {
   padding: 14px;
-  border: 1px solid rgba(236, 72, 153, 0.18);
+  border: 1px solid rgba(43, 43, 37, 0.12);
   border-radius: 30px;
-  background: rgba(255, 255, 255, 0.72);
-  box-shadow: 0 30px 90px rgba(126, 34, 206, 0.18);
+  background: rgba(255, 252, 247, 0.72);
+  box-shadow: 0 30px 90px rgba(67, 54, 38, 0.18);
 }
 
 .heroCard img {
@@ -261,22 +254,21 @@ button {
 .heroStats div {
   padding: 16px;
   border-radius: 18px;
-  background: linear-gradient(135deg, #ffffff, #fae8ff);
-  border: 1px solid rgba(236, 72, 153, 0.14);
+  background: #efe5d8;
 }
 
 .heroStats strong {
   display: block;
-  color: #be185d;
+  color: #6f7f5f;
   font-size: 22px;
 }
 
 .heroStats span {
   display: block;
   margin-top: 3px;
-  color: rgba(42, 16, 47, 0.58);
+  color: rgba(43, 43, 37, 0.58);
   font-size: 12px;
-  font-weight: 900;
+  font-weight: 800;
 }
 
 /* SERVICIOS */
@@ -292,11 +284,10 @@ button {
 .infoCard,
 .adminBox,
 .cartBox,
-.productCard,
-.emptyProducts {
-  border: 1px solid rgba(236, 72, 153, 0.16);
-  background: rgba(255, 255, 255, 0.82);
-  box-shadow: 0 22px 70px rgba(126, 34, 206, 0.11);
+.productCard {
+  border: 1px solid rgba(43, 43, 37, 0.12);
+  background: rgba(255, 252, 247, 0.82);
+  box-shadow: 0 22px 70px rgba(67, 54, 38, 0.11);
 }
 
 .infoCard {
@@ -307,30 +298,30 @@ button {
 
 .infoCard strong {
   display: block;
+  color: #2b2b25;
   font-size: 20px;
-  font-weight: 950;
-  color: #831843;
+  font-weight: 900;
 }
 
 .infoCard p {
   margin: 12px 0 0;
-  color: rgba(42, 16, 47, 0.62);
+  color: rgba(43, 43, 37, 0.62);
   line-height: 1.55;
 }
 
 /* TITULOS */
 
 .sectionTitle span {
-  color: #be185d;
+  color: #6f7f5f;
   font-size: 12px;
-  font-weight: 950;
+  font-weight: 900;
   letter-spacing: 0.2em;
   text-transform: uppercase;
 }
 
 .sectionTitle h2 {
   margin: 8px 0 0;
-  color: #2a102f;
+  color: #2b2b25;
   font-size: clamp(30px, 4vw, 46px);
   line-height: 1.05;
   letter-spacing: -0.05em;
@@ -339,7 +330,7 @@ button {
 .sectionTitle p {
   max-width: 660px;
   margin: 12px 0 0;
-  color: rgba(42, 16, 47, 0.62);
+  color: rgba(43, 43, 37, 0.62);
   line-height: 1.6;
 }
 
@@ -369,20 +360,20 @@ button {
 
 .field span,
 .searchBox span {
-  color: rgba(42, 16, 47, 0.72);
+  color: rgba(43, 43, 37, 0.72);
   font-size: 13px;
-  font-weight: 900;
+  font-weight: 800;
 }
 
 .field input,
 .field textarea,
 .searchBox input {
   width: 100%;
-  border: 1px solid rgba(236, 72, 153, 0.2);
+  border: 1px solid rgba(43, 43, 37, 0.14);
   border-radius: 16px;
   outline: none;
-  background: rgba(255, 255, 255, 0.92);
-  color: #2a102f;
+  background: #fffaf2;
+  color: #2b2b25;
   padding: 15px 16px;
 }
 
@@ -394,8 +385,7 @@ button {
 .field input:focus,
 .field textarea:focus,
 .searchBox input:focus {
-  border-color: #ec4899;
-  box-shadow: 0 0 0 4px rgba(236, 72, 153, 0.12);
+  border-color: #6f7f5f;
 }
 
 /* SHOP */
@@ -429,18 +419,18 @@ button {
 }
 
 .categoryRow button {
-  border: 1px solid rgba(236, 72, 153, 0.2);
+  border: 1px solid rgba(43, 43, 37, 0.12);
   border-radius: 14px;
-  background: rgba(255, 255, 255, 0.84);
-  color: #581c87;
+  background: #fffaf2;
+  color: rgba(43, 43, 37, 0.72);
   padding: 12px 14px;
-  font-weight: 950;
+  font-weight: 900;
 }
 
 .categoryRow button:hover,
 .categoryRow .activeCategory {
-  border-color: #ec4899;
-  background: linear-gradient(135deg, #ec4899, #9333ea);
+  border-color: #6f7f5f;
+  background: #6f7f5f;
   color: #ffffff;
 }
 
@@ -450,8 +440,6 @@ button {
   gap: 20px;
 }
 
-/* PRODUCTOS */
-
 .productCard {
   overflow: hidden;
   border-radius: 28px;
@@ -460,7 +448,7 @@ button {
 .productImage {
   position: relative;
   aspect-ratio: 4 / 3;
-  background: #fce7f3;
+  background: #e8ddcf;
   overflow: hidden;
 }
 
@@ -480,11 +468,11 @@ button {
   left: 14px;
   top: 14px;
   border-radius: 999px;
-  background: linear-gradient(135deg, #ec4899, #9333ea);
-  color: #ffffff;
+  background: #e7c9a9;
+  color: #3b2f24;
   padding: 8px 11px;
   font-size: 12px;
-  font-weight: 950;
+  font-weight: 900;
 }
 
 .productBody {
@@ -492,15 +480,15 @@ button {
 }
 
 .productBody small {
-  color: rgba(42, 16, 47, 0.48);
-  font-weight: 950;
+  color: rgba(43, 43, 37, 0.48);
+  font-weight: 900;
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
 .productBody h3 {
   margin: 10px 0 0;
-  color: #831843;
+  color: #2b2b25;
   font-size: 22px;
   line-height: 1.15;
 }
@@ -508,7 +496,7 @@ button {
 .productBody p {
   min-height: 72px;
   margin: 12px 0 0;
-  color: rgba(42, 16, 47, 0.62);
+  color: rgba(43, 43, 37, 0.62);
   line-height: 1.55;
 }
 
@@ -521,24 +509,24 @@ button {
 }
 
 .productFooter strong {
-  color: #be185d;
+  color: #6f7f5f;
   font-size: 22px;
 }
 
 .productFooter button {
   border: 0;
   border-radius: 14px;
-  background: #2a102f;
+  background: #2b2b25;
   color: #ffffff;
   padding: 12px 14px;
-  font-weight: 950;
+  font-weight: 900;
 }
 
 .productFooter button:hover {
-  background: #ec4899;
+  background: #6f7f5f;
 }
 
-/* BOTONES ADMIN PRODUCTO */
+/* ADMIN PRODUCT ACTIONS */
 
 .adminProductActions {
   display: grid;
@@ -553,27 +541,62 @@ button {
   border: 0;
   border-radius: 14px;
   padding: 12px 14px;
-  font-weight: 950;
+  font-weight: 900;
   cursor: pointer;
   transition: 0.2s ease;
 }
 
 .editButton {
-  background: #c084fc;
-  color: #2a102f;
+  background: #e7c9a9;
+  color: #3b2f24;
 }
 
 .editButton:hover {
-  background: #d8b4fe;
+  background: #d8ad7f;
 }
 
 .deleteButton {
-  background: #ec4899;
+  background: #c96f5d;
   color: #ffffff;
 }
 
 .deleteButton:hover {
-  background: #be185d;
+  background: #b85d4b;
+}
+
+.primaryButton:disabled,
+.secondaryButton:disabled,
+.editButton:disabled,
+.deleteButton:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.productForm .secondaryButton {
+  width: 100%;
+  margin-top: 0;
+}
+
+/* EMPTY PRODUCTS */
+
+.emptyProducts {
+  border: 1px solid rgba(43, 43, 37, 0.12);
+  border-radius: 24px;
+  background: rgba(255, 252, 247, 0.82);
+  padding: 28px;
+  color: rgba(43, 43, 37, 0.72);
+}
+
+.emptyProducts h3 {
+  margin: 0;
+  color: #2b2b25;
+  font-size: 24px;
+}
+
+.emptyProducts p {
+  margin: 10px 0 0;
+  color: rgba(43, 43, 37, 0.58);
+  line-height: 1.55;
 }
 
 /* CARRITO */
@@ -593,16 +616,16 @@ button {
 }
 
 .cartHeader span {
-  color: #be185d;
+  color: #6f7f5f;
   font-size: 12px;
-  font-weight: 950;
+  font-weight: 900;
   letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 
 .cartHeader h2 {
   margin: 6px 0 0;
-  color: #2a102f;
+  color: #2b2b25;
   font-size: 30px;
 }
 
@@ -612,17 +635,17 @@ button {
   width: 48px;
   height: 48px;
   border-radius: 16px;
-  background: linear-gradient(135deg, #ec4899, #9333ea);
+  background: #6f7f5f;
   color: #ffffff;
 }
 
 .emptyCart {
   margin: 22px 0 0;
-  border: 1px solid rgba(236, 72, 153, 0.14);
+  border: 1px solid rgba(43, 43, 37, 0.12);
   border-radius: 18px;
-  background: #fff7fb;
+  background: #fffaf2;
   padding: 18px;
-  color: rgba(42, 16, 47, 0.5);
+  color: rgba(43, 43, 37, 0.55);
   text-align: center;
 }
 
@@ -638,7 +661,7 @@ button {
   gap: 12px;
   align-items: center;
   border-radius: 18px;
-  background: #fff7fb;
+  background: #fffaf2;
   padding: 10px;
 }
 
@@ -651,16 +674,16 @@ button {
 
 .cartItem strong {
   display: block;
-  color: #831843;
+  color: #2b2b25;
   font-size: 14px;
 }
 
 .cartItem span {
   display: block;
   margin-top: 5px;
-  color: rgba(42, 16, 47, 0.5);
+  color: rgba(43, 43, 37, 0.55);
   font-size: 12px;
-  font-weight: 900;
+  font-weight: 800;
 }
 
 .cartItem button {
@@ -668,13 +691,13 @@ button {
   height: 34px;
   border: 0;
   border-radius: 12px;
-  background: rgba(236, 72, 153, 0.1);
-  color: #be185d;
+  background: rgba(43, 43, 37, 0.08);
+  color: #2b2b25;
   font-size: 22px;
 }
 
 .cartItem button:hover {
-  background: rgba(236, 72, 153, 0.2);
+  background: rgba(201, 111, 93, 0.22);
 }
 
 .cartTotal {
@@ -683,14 +706,14 @@ button {
   justify-content: space-between;
   margin-top: 22px;
   padding-top: 20px;
-  border-top: 1px solid rgba(236, 72, 153, 0.14);
-  color: #2a102f;
+  border-top: 1px solid rgba(43, 43, 37, 0.13);
+  color: #2b2b25;
   font-size: 20px;
-  font-weight: 950;
+  font-weight: 900;
 }
 
 .cartTotal strong {
-  color: #be185d;
+  color: #6f7f5f;
 }
 
 .mpButton,
@@ -701,63 +724,30 @@ button {
 }
 
 .mpButton {
-  background: linear-gradient(135deg, #7c3aed, #a855f7);
+  background: #2f5f8f;
   color: #ffffff;
 }
 
 .mpButton:hover {
-  background: linear-gradient(135deg, #8b5cf6, #c084fc);
+  background: #3b76ad;
 }
 
 .whatsappButton {
-  background: linear-gradient(135deg, #ec4899, #be185d);
+  background: #4f7d52;
   color: #ffffff;
 }
 
 .whatsappButton:hover {
-  background: linear-gradient(135deg, #f472b6, #db2777);
+  background: #609662;
 }
 
 .clearButton {
-  background: rgba(42, 16, 47, 0.08);
-  color: #2a102f;
+  background: #e8ddcf;
+  color: #2b2b25;
 }
 
 .clearButton:hover {
-  background: rgba(236, 72, 153, 0.18);
-}
-
-.primaryButton:disabled,
-.secondaryButton:disabled,
-.editButton:disabled,
-.deleteButton:disabled {
-  opacity: 0.55;
-  cursor: not-allowed;
-}
-
-.productForm .secondaryButton {
-  width: 100%;
-  margin-top: 0;
-}
-
-/* EMPTY PRODUCTS */
-
-.emptyProducts {
-  border-radius: 24px;
-  padding: 28px;
-  color: rgba(42, 16, 47, 0.72);
-}
-
-.emptyProducts h3 {
-  margin: 0;
-  color: #831843;
-  font-size: 24px;
-}
-
-.emptyProducts p {
-  margin: 10px 0 0;
-  color: rgba(42, 16, 47, 0.58);
-  line-height: 1.55;
+  background: #d9cab8;
 }
 
 /* FOOTER */
@@ -765,19 +755,14 @@ button {
 .footer {
   display: grid;
   gap: 6px;
-  border-top: 1px solid rgba(236, 72, 153, 0.14);
-  background: rgba(255, 255, 255, 0.75);
+  border-top: 1px solid rgba(43, 43, 37, 0.1);
   padding: 32px 16px;
-  color: rgba(42, 16, 47, 0.55);
+  color: rgba(43, 43, 37, 0.55);
   text-align: center;
 }
 
 .footer strong {
-  background: linear-gradient(90deg, #be185d, #7e22ce, #ec4899);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  font-weight: 950;
+  color: #2b2b25;
 }
 
 /* RESPONSIVE */
