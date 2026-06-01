@@ -284,7 +284,7 @@ export default function HomePage() {
             />
             <div>
               <strong>Metalia Design</strong>
-              <span>Diseño metálico y corte láser</span>
+              <span>Decoración metálica de diseñor</span>
             </div>
           </a>
 
@@ -310,11 +310,11 @@ export default function HomePage() {
         <div className="container heroGrid">
           <div className="heroText">
             <span className="eyebrow">Diseño + corte láser</span>
-            <h1>Productos metálicos decorativos y cortes láser a medida.</h1>
+            <h1>Productos metálicos de diseño para decorar tu espacio.</h1>
             <p>
-              Tienda online de productos metálicos, decoración, cartelería,
-              chapas caladas, paneles divisorios y trabajos personalizados con
-              diseño y precisión.
+             Productos de diseño para hogares, locales y espacios comerciales.
+             Paneles decorativos, carteles, cuadros, separadores y piezas metálicas
+             listas para usar.
             </p>
 
             <div className="heroActions">
