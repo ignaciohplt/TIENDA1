@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "MetalTec | Corte laser industrial",
+  title: "MetaliaDesing | Diseño metálico para espacios únicos",
   description:
-    "Tienda online de productos metalicos, corte laser en chapa, corte de canos, carteleria metalica y trabajos personalizados.",
+    "Productos de diseño para hogares, locales y espacios comerciales. Paneles decorativos, carteles, cuadros, separadores y piezas metálicas listas para usar.",
 };
 
 export default function RootLayout({
