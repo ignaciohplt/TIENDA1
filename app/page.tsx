@@ -158,9 +158,7 @@ export default function HomePage() {
       if (editingProductId) {
         setProducts((currentProducts) =>
           currentProducts.map((product) =>
-            product.id === editingProductId
-              ? (data.product as Product)
-              : product
+            product.id === editingProductId ? (data.product as Product) : product
           )
         );
 
@@ -265,6 +263,40 @@ export default function HomePage() {
     }
   }
 
+  async function payWithMercadoPago() {
+    if (cart.length === 0) {
+      alert("Primero agregá un producto al carrito.");
+      return;
+    }
+
+    try {
+      const response = await fetch("/api/checkout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ cart }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        alert(data.error || "No se pudo iniciar Mercado Pago.");
+        return;
+      }
+
+      if (data.init_point) {
+        window.location.href = data.init_point;
+        return;
+      }
+
+      alert("Mercado Pago no devolvió el link de pago.");
+    } catch (error) {
+      console.error("Error iniciando Mercado Pago:", error);
+      alert("No se pudo iniciar Mercado Pago.");
+    }
+  }
+
   const whatsappNumber =
     process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "5493415896964";
 
@@ -281,11 +313,7 @@ export default function HomePage() {
       <header className="header">
         <div className="container headerContent">
           <a className="brand" href="#inicio" aria-label="Metalia Design">
-            <img
-              src="/logo.svg"
-              alt="Metalia Design"
-              className="brandLogo"
-            />
+            <img src="/logo.svg" alt="Metalia Design" className="brandLogo" />
             <div>
               <strong>Metalia Design</strong>
               <span>Diseño metálico para espacios únicos</span>
@@ -369,12 +397,6 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      <section className="benefitsStrip">
-        <div className="container benefitsGrid">
-
         </div>
       </section>
 
@@ -596,9 +618,7 @@ export default function HomePage() {
           <button
             type="button"
             className="mpButton"
-            onClick={() =>
-              alert("Acá después se conecta Mercado Pago con Checkout Pro.")
-            }
+            onClick={payWithMercadoPago}
           >
             Pagar con Mercado Pago
           </button>
@@ -653,10 +673,7 @@ export default function HomePage() {
               el cuidado en los detalles y en la presentación.”
             </p>
             <div className="reviewAuthor">
-              <img
-                src="/2.png"
-                alt="Cuadro decorativo"
-              />
+              <img src="/2.png" alt="Cuadro decorativo" />
               <div>
                 <strong>Terminación premium</strong>
                 <span>Productos metálicos decorativos</span>
@@ -702,26 +719,6 @@ export default function HomePage() {
         <span>Diseños metálicos, decoración y corte láser</span>
       </footer>
     </main>
-  );
-}
-
-function BenefitItem({
-  icon,
-  title,
-  text,
-}: {
-  icon: string;
-  title: string;
-  text: string;
-}) {
-  return (
-    <article className="benefitItem">
-      <span>{icon}</span>
-      <div>
-        <strong>{title}</strong>
-        <p>{text}</p>
-      </div>
-    </article>
   );
 }
 
