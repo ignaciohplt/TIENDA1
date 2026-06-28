@@ -30,6 +30,15 @@ export default function HomePage() {
   const [savingProduct, setSavingProduct] = useState(false);
   const [editingProductId, setEditingProductId] = useState<number | null>(null);
 
+  const [customer, setCustomer] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    address: "",
+    city: "",
+    notes: "",
+  });
+
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     setAdminMode(params.get("admin") === "1");
@@ -263,39 +272,94 @@ export default function HomePage() {
     }
   }
 
-  async function payWithMercadoPago() {
-    if (cart.length === 0) {
-      alert("Primero agregá un producto al carrito.");
+function addBusinessDays(startDate: Date, days: number) {
+  const date = new Date(startDate);
+  let addedDays = 0;
+
+  while (addedDays < days) {
+    date.setDate(date.getDate() + 1);
+
+    const day = date.getDay();
+
+    if (day !== 0 && day !== 6) {
+      addedDays++;
+    }
+  }
+
+  return date;
+}
+
+function formatDeliveryDate(date: Date) {
+  return new Intl.DateTimeFormat("es-AR", {
+    weekday: "long",
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  }).format(date);
+}
+
+async function payWithMercadoPago() {
+  if (cart.length === 0) {
+    alert("Primero agregá un producto al carrito.");
+    return;
+  }
+
+  if (
+    !customer.name.trim() ||
+    !customer.phone.trim() ||
+    !customer.email.trim() ||
+    !customer.address.trim() ||
+    !customer.city.trim()
+  ) {
+    alert("Completá los datos del cliente antes de pagar.");
+    return;
+  }
+
+  const deliveryDate = addBusinessDays(new Date(), 5);
+  const deliveryDateText = formatDeliveryDate(deliveryDate);
+
+  try {
+    const response = await fetch("/api/checkout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        cart,
+        customer: {
+          name: customer.name.trim(),
+          phone: customer.phone.trim(),
+          email: customer.email.trim(),
+          address: customer.address.trim(),
+          city: customer.city.trim(),
+          notes: customer.notes.trim(),
+        },
+        delivery: {
+          estimatedDate: deliveryDate.toISOString(),
+          estimatedText: deliveryDateText,
+          businessDays: 5,
+        },
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      alert(data.error || "No se pudo iniciar Mercado Pago.");
       return;
     }
 
-    try {
-      const response = await fetch("/api/checkout", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ cart }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        alert(data.error || "No se pudo iniciar Mercado Pago.");
-        return;
-      }
-
-      if (data.init_point) {
-        window.location.href = data.init_point;
-        return;
-      }
-
-      alert("Mercado Pago no devolvió el link de pago.");
-    } catch (error) {
-      console.error("Error iniciando Mercado Pago:", error);
-      alert("No se pudo iniciar Mercado Pago.");
+    if (data.init_point) {
+      window.location.href = data.init_point;
+      return;
     }
+
+    alert("Mercado Pago no devolvió el link de pago.");
+  } catch (error) {
+    console.error("Error iniciando Mercado Pago:", error);
+    alert("No se pudo iniciar Mercado Pago.");
   }
+}
 
   const whatsappNumber =
     process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "5493415896964";
@@ -610,18 +674,94 @@ export default function HomePage() {
             </div>
           )}
 
-          <div className="cartTotal">
-            <span>Total</span>
-            <strong>{formatMoney(cartTotal)}</strong>
-          </div>
+         <div className="cartTotal">
+  <span>Total</span>
+  <strong>{formatMoney(cartTotal)}</strong>
+</div>
 
-          <button
-            type="button"
-            className="mpButton"
-            onClick={payWithMercadoPago}
-          >
-            Pagar con Mercado Pago
-          </button>
+<div className="checkoutData">
+  <h3>Datos para la entrega</h3>
+
+  <label className="field cartField">
+    <span>Nombre y apellido</span>
+    <input
+      value={customer.name}
+      onChange={(event) =>
+        setCustomer({ ...customer, name: event.target.value })
+      }
+      placeholder="Ej: Juan Pérez"
+    />
+  </label>
+
+  <label className="field cartField">
+    <span>Teléfono</span>
+    <input
+      value={customer.phone}
+      onChange={(event) =>
+        setCustomer({ ...customer, phone: event.target.value })
+      }
+      placeholder="Ej: 3415896964"
+    />
+  </label>
+
+  <label className="field cartField">
+    <span>Email</span>
+    <input
+      type="email"
+      value={customer.email}
+      onChange={(event) =>
+        setCustomer({ ...customer, email: event.target.value })
+      }
+      placeholder="Ej: cliente@gmail.com"
+    />
+  </label>
+
+  <label className="field cartField">
+    <span>Dirección</span>
+    <input
+      value={customer.address}
+      onChange={(event) =>
+        setCustomer({ ...customer, address: event.target.value })
+      }
+      placeholder="Ej: San Martín 1234"
+    />
+  </label>
+
+  <label className="field cartField">
+    <span>Ciudad / Localidad</span>
+    <input
+      value={customer.city}
+      onChange={(event) =>
+        setCustomer({ ...customer, city: event.target.value })
+      }
+      placeholder="Ej: Rosario"
+    />
+  </label>
+
+  <label className="field cartField">
+    <span>Observaciones</span>
+    <textarea
+      value={customer.notes}
+      onChange={(event) =>
+        setCustomer({ ...customer, notes: event.target.value })
+      }
+      placeholder="Ej: entregar por la tarde"
+    />
+  </label>
+
+  <p className="deliveryDateBox">
+    Fecha estimada de entrega:{" "}
+    <strong>{formatDeliveryDate(addBusinessDays(new Date(), 5))}</strong>
+  </p>
+</div>
+
+<button
+  type="button"
+  className="mpButton"
+  onClick={payWithMercadoPago}
+>
+  Pagar con Mercado Pago
+</button>
 
           <a
             className="whatsappButton"
