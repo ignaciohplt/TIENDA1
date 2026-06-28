@@ -29,6 +29,118 @@ function cleanText(value: unknown) {
   return String(value || "").trim();
 }
 
+function formatARS(value: number) {
+  return new Intl.NumberFormat("es-AR", {
+    style: "currency",
+    currency: "ARS",
+    maximumFractionDigits: 0,
+  }).format(value);
+}
+
+async function createTrelloCard({
+  externalReference,
+  customerName,
+  customerPhone,
+  customerEmail,
+  customerAddress,
+  customerCity,
+  customerNotes,
+  deliveryDate,
+  deliveryText,
+  total,
+  cart,
+}: {
+  externalReference: string;
+  customerName: string;
+  customerPhone: string;
+  customerEmail: string;
+  customerAddress: string;
+  customerCity: string;
+  customerNotes: string;
+  deliveryDate: string;
+  deliveryText: string;
+  total: number;
+  cart: CartItem[];
+}) {
+  const trelloKey = process.env.TRELLO_KEY;
+  const trelloToken = process.env.TRELLO_TOKEN;
+  const trelloListId = process.env.TRELLO_LIST_ID;
+
+  if (!trelloKey || !trelloToken || !trelloListId) {
+    console.warn("Faltan variables de Trello. No se creó tarjeta.");
+    return null;
+  }
+
+  const productsText = cart
+    .map((item) => {
+      const subtotal = Number(item.price) * Number(item.quantity);
+
+      return `- ${item.name} x${item.quantity} - ${formatARS(subtotal)}`;
+    })
+    .join("\n");
+
+  const cardName = `Pedido web - ${customerName} - ${formatARS(total)}`;
+
+  const cardDescription = `
+PEDIDO NUEVO WEB
+
+Referencia:
+${externalReference}
+
+DATOS DEL CLIENTE
+Nombre: ${customerName}
+Teléfono: ${customerPhone}
+Email: ${customerEmail}
+Dirección: ${customerAddress}
+Ciudad: ${customerCity}
+Observaciones: ${customerNotes || "Sin observaciones"}
+
+ENTREGA
+Fecha estimada: ${deliveryText}
+Fecha: ${deliveryDate}
+Plazo: 5 días hábiles después de la compra
+
+PRODUCTOS
+${productsText}
+
+TOTAL
+${formatARS(total)}
+
+ESTADO
+Pendiente de pago / creado al iniciar Mercado Pago
+`.trim();
+
+  const params = new URLSearchParams({
+    key: trelloKey,
+    token: trelloToken,
+    idList: trelloListId,
+    name: cardName,
+    desc: cardDescription,
+    pos: "top",
+  });
+
+  if (deliveryDate) {
+    params.set("due", `${deliveryDate}T15:00:00.000Z`);
+  }
+
+  const response = await fetch("https://api.trello.com/1/cards", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: params.toString(),
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    console.error("Error creando tarjeta Trello:", data);
+    return null;
+  }
+
+  return data;
+}
+
 export async function POST(request: Request) {
   try {
     const accessToken = process.env.MP_ACCESS_TOKEN;
@@ -225,9 +337,24 @@ export async function POST(request: Request) {
       );
     }
 
+    const trelloCard = await createTrelloCard({
+      externalReference,
+      customerName,
+      customerPhone,
+      customerEmail,
+      customerAddress,
+      customerCity,
+      customerNotes,
+      deliveryDate,
+      deliveryText,
+      total,
+      cart: validCart,
+    });
+
     return NextResponse.json({
       init_point: initPoint,
       external_reference: externalReference,
+      trello_card_url: trelloCard?.url || null,
     });
   } catch (error) {
     console.error("Error creando pago:", error);
